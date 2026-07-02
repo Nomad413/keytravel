@@ -1,0 +1,332 @@
+import { useEffect, useState } from "react";
+import { useApp } from "../state/store";
+import type { Role } from "../types";
+import { formatMoney } from "../lib/policy";
+import { roleMeta } from "../lib/flows";
+import {
+  Button,
+  Card,
+  Field,
+  SectionTitle,
+  inputClass,
+} from "../components/ui";
+import { AdminBuilder } from "./AdminBuilder";
+
+type AdminTab =
+  | "users"
+  | "policies"
+  | "workflows"
+  | "budgets"
+  | "integrations";
+
+const TABS: { id: AdminTab; label: string }[] = [
+  { id: "users", label: "Users" },
+  { id: "policies", label: "Policies" },
+  { id: "workflows", label: "Approval workflows" },
+  { id: "budgets", label: "Budgets" },
+  { id: "integrations", label: "Integrations" },
+];
+
+export function AdminConsole() {
+  const [tab, setTab] = useState<AdminTab>("users");
+  const { currentOrg } = useApp();
+
+  return (
+    <div>
+      <SectionTitle
+        title="Admin console"
+        subtitle={`Manage ${currentOrg.name}: users, policies, approval workflows, budgets and integrations.`}
+      />
+      <div className="mb-5 flex flex-wrap gap-2">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setTab(t.id)}
+            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+              tab === t.id
+                ? "bg-brand-600 text-white"
+                : "border border-slate-300 bg-white text-slate-600 hover:bg-slate-50"
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {tab === "users" && <UsersPanel />}
+      {tab === "policies" && <PoliciesPanel />}
+      {tab === "workflows" && <AdminBuilder />}
+      {tab === "budgets" && <BudgetsPanel />}
+      {tab === "integrations" && <IntegrationsPanel />}
+    </div>
+  );
+}
+
+const roleBadge: Record<Role, string> = {
+  TRAVELER: "bg-violet-100 text-violet-700",
+  ARRANGER: "bg-emerald-100 text-emerald-700",
+  APPROVER: "bg-orange-100 text-orange-700",
+  ADMIN: "bg-teal-100 text-teal-700",
+  FINANCE: "bg-brand-100 text-brand-700",
+  AGENT: "bg-indigo-100 text-indigo-700",
+};
+
+const ALL_ROLES: Role[] = ["TRAVELER", "ARRANGER", "APPROVER", "ADMIN", "FINANCE"];
+
+function UsersPanel() {
+  const { orgUsers, dispatch } = useApp();
+  return (
+    <Card className="divide-y divide-slate-100">
+      <div className="flex items-center justify-between px-5 py-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <span>User</span>
+        <span>Role</span>
+      </div>
+      {orgUsers.map((u) => (
+        <div
+          key={u.id}
+          className="flex items-center justify-between gap-3 px-5 py-3"
+        >
+          <div className="flex items-center gap-3">
+            <span
+              className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${roleBadge[u.role]}`}
+            >
+              {u.name
+                .split(" ")
+                .map((p) => p[0])
+                .slice(0, 2)
+                .join("")}
+            </span>
+            <div>
+              <div className="text-sm font-semibold text-slate-800">
+                {u.name}
+              </div>
+              <div className="text-xs text-slate-500">
+                {u.title} · {u.department}
+              </div>
+            </div>
+          </div>
+          <select
+            className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-sm font-medium text-slate-700 outline-none focus:border-brand-500"
+            value={u.role}
+            onChange={(e) =>
+              dispatch({
+                type: "UPDATE_USER_ROLE",
+                userId: u.id,
+                role: e.target.value as Role,
+              })
+            }
+          >
+            {ALL_ROLES.map((r) => (
+              <option key={r} value={r}>
+                {roleMeta[r].label}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
+    </Card>
+  );
+}
+
+function PoliciesPanel() {
+  const { currentOrg, dispatch } = useApp();
+  const [maxTripCost, setMaxTripCost] = useState(currentOrg.policy.maxTripCost);
+  const [restricted, setRestricted] = useState(
+    currentOrg.policy.restrictedDestinations.join(", ")
+  );
+  const [notes, setNotes] = useState(currentOrg.policy.notes ?? "");
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    setMaxTripCost(currentOrg.policy.maxTripCost);
+    setRestricted(currentOrg.policy.restrictedDestinations.join(", "));
+    setNotes(currentOrg.policy.notes ?? "");
+    setSaved(false);
+  }, [currentOrg.id]);
+
+  const save = () => {
+    dispatch({
+      type: "UPDATE_POLICY",
+      orgId: currentOrg.id,
+      policy: {
+        ...currentOrg.policy,
+        maxTripCost,
+        restrictedDestinations: restricted
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        notes,
+      },
+    });
+    setSaved(true);
+  };
+
+  return (
+    <Card className="p-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Field
+          label={`Policy cost limit (${currentOrg.currency})`}
+          hint="Trips above this are treated as out of policy (soft enforcement)."
+        >
+          <input
+            type="number"
+            className={inputClass}
+            value={maxTripCost}
+            onChange={(e) => {
+              setMaxTripCost(Number(e.target.value) || 0);
+              setSaved(false);
+            }}
+          />
+        </Field>
+        <Field
+          label="Restricted destinations"
+          hint="Comma-separated. These trigger additional approval."
+        >
+          <input
+            className={inputClass}
+            value={restricted}
+            onChange={(e) => {
+              setRestricted(e.target.value);
+              setSaved(false);
+            }}
+          />
+        </Field>
+      </div>
+      <div className="mt-4">
+        <Field label="Policy notes">
+          <textarea
+            className={inputClass}
+            rows={2}
+            value={notes}
+            onChange={(e) => {
+              setNotes(e.target.value);
+              setSaved(false);
+            }}
+          />
+        </Field>
+      </div>
+      <div className="mt-5 flex items-center justify-end gap-3">
+        {saved && (
+          <span className="text-xs font-medium text-emerald-600">
+            Policy saved — applies to new requests.
+          </span>
+        )}
+        <Button onClick={save}>Save policy</Button>
+      </div>
+    </Card>
+  );
+}
+
+function BudgetsPanel() {
+  const { currentOrg, orgRequests } = useApp();
+
+  const spentByDept = (department: string) =>
+    orgRequests
+      .filter(
+        (r) =>
+          r.department === department &&
+          (r.status === "BOOKED" || r.status === "COMPLETED")
+      )
+      .reduce((s, r) => s + r.estimatedCost, 0);
+
+  return (
+    <div className="space-y-4">
+      {currentOrg.departmentBudgets.map((b) => {
+        const spent = spentByDept(b.department);
+        const pct = Math.min(100, Math.round((spent / b.limitAmount) * 100));
+        const over = spent > b.limitAmount;
+        return (
+          <Card key={b.department} className="p-5">
+            <div className="mb-2 flex items-center justify-between">
+              <div className="text-sm font-semibold text-slate-800">
+                {b.department}
+              </div>
+              <div className="text-sm text-slate-600">
+                {formatMoney(spent, currentOrg.currency)}{" "}
+                <span className="text-slate-400">
+                  / {formatMoney(b.limitAmount, currentOrg.currency)}
+                </span>
+              </div>
+            </div>
+            <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
+              <div
+                className={`h-full rounded-full ${
+                  over ? "bg-rose-500" : "bg-emerald-500"
+                }`}
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+            <div className="mt-1 text-xs text-slate-400">
+              {pct}% of annual travel budget committed
+            </div>
+          </Card>
+        );
+      })}
+    </div>
+  );
+}
+
+const initialIntegrations = [
+  {
+    name: "Internal booking system",
+    desc: "Search, book, change and cancel via the existing platform APIs.",
+    enabled: true,
+  },
+  {
+    name: "Finance / ERP",
+    desc: "Sync invoices and reconciliation with the finance system.",
+    enabled: true,
+  },
+  {
+    name: "SSO / Identity provider",
+    desc: "SAML / OIDC single sign-on with MFA.",
+    enabled: true,
+  },
+  {
+    name: "GDS / NDC content",
+    desc: "Direct flight content from Amadeus / Sabre / Travelport.",
+    enabled: false,
+  },
+  {
+    name: "Notifications (email / Slack / Teams)",
+    desc: "Approval and status notifications to travelers and approvers.",
+    enabled: true,
+  },
+];
+
+function IntegrationsPanel() {
+  const [integrations, setIntegrations] = useState(initialIntegrations);
+  const toggle = (i: number) =>
+    setIntegrations((prev) =>
+      prev.map((x, idx) => (idx === i ? { ...x, enabled: !x.enabled } : x))
+    );
+
+  return (
+    <Card className="divide-y divide-slate-100">
+      {integrations.map((it, i) => (
+        <div
+          key={it.name}
+          className="flex items-center justify-between gap-4 px-5 py-4"
+        >
+          <div>
+            <div className="text-sm font-semibold text-slate-800">{it.name}</div>
+            <div className="text-xs text-slate-500">{it.desc}</div>
+          </div>
+          <button
+            onClick={() => toggle(i)}
+            className={`relative h-6 w-11 flex-none rounded-full transition ${
+              it.enabled ? "bg-emerald-500" : "bg-slate-300"
+            }`}
+            aria-label={`Toggle ${it.name}`}
+          >
+            <span
+              className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition ${
+                it.enabled ? "left-[22px]" : "left-0.5"
+              }`}
+            />
+          </button>
+        </div>
+      ))}
+    </Card>
+  );
+}

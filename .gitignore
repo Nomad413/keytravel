@@ -1,0 +1,17 @@
+node_modules
+dist
+dist-ssr
+*.local
+.vite
+.DS_Store
+npm-debug.log*
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+.vercel
+
+# Assignment brief & private deliverables — keep out of the public repo
+*.pdf
+*.docx
+*.doc
+*.png
