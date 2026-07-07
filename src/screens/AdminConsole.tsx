@@ -24,8 +24,8 @@ const TABS: { id: AdminTab; label: string; later?: boolean }[] = [
   { id: "users", label: "Users" },
   { id: "policies", label: "Policies", later: true },
   { id: "workflows", label: "Approval workflows", later: true },
-  { id: "budgets", label: "Budgets" },
-  { id: "integrations", label: "Integrations" },
+  { id: "budgets", label: "Budgets", later: true },
+  { id: "integrations", label: "Integrations", later: true },
 ];
 
 export function AdminConsole() {
@@ -52,7 +52,7 @@ export function AdminConsole() {
             {t.label}
             {t.later && (
               <span
-                title="Org self-service configuration is post-MVP; in MVP Key Travel configures this"
+                title="In MVP this is set up by Key Travel (Agent-assisted onboarding); org self-service is post-MVP"
                 className={`ml-1.5 rounded px-1 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
                   tab === t.id
                     ? "bg-white/25 text-white"
@@ -75,6 +75,17 @@ export function AdminConsole() {
   );
 }
 
+function LaterNote({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
+      <span className="mr-2 rounded-full bg-amber-200 px-2 py-0.5 font-semibold text-amber-900">
+        Later · post-MVP
+      </span>
+      {children}
+    </div>
+  );
+}
+
 const roleBadge: Record<Role, string> = {
   TRAVELER: "bg-violet-100 text-violet-700",
   ARRANGER: "bg-emerald-100 text-emerald-700",
@@ -89,6 +100,16 @@ const ALL_ROLES: Role[] = ["TRAVELER", "ARRANGER", "APPROVER", "ADMIN", "FINANCE
 function UsersPanel() {
   const { orgUsers, dispatch } = useApp();
   return (
+    <>
+    <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800">
+      <span className="mr-2 rounded-full bg-emerald-200 px-2 py-0.5 font-semibold text-emerald-900">
+        MVP
+      </span>
+      Org Admins self-serve day-to-day user management (invite, assign role,
+      deactivate). Bulk seeding is Agent-assisted (CSV) at onboarding; SSO JIT
+      auto-creates accounts. Directory (SCIM / HRIS) auto-provisioning is
+      post-MVP.
+    </div>
     <Card className="divide-y divide-slate-100">
       <div className="flex items-center justify-between px-5 py-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
         <span>User</span>
@@ -138,6 +159,7 @@ function UsersPanel() {
         </div>
       ))}
     </Card>
+    </>
   );
 }
 
@@ -268,6 +290,12 @@ function BudgetsPanel() {
 
   return (
     <div className="space-y-4">
+      <LaterNote>
+        Setting department budgets (org self-serve config) and this budget-vs-spend
+        view (analytics) are <b>post-MVP</b>. In MVP, <b>cost-center tagging</b> for
+        finance allocation is captured, and Key Travel configures any budget caps
+        during onboarding.
+      </LaterNote>
       {currentOrg.departmentBudgets.map((b) => {
         const spent = spentByDept(b.department);
         const pct = Math.min(100, Math.round((spent / b.limitAmount) * 100));
@@ -337,38 +365,36 @@ const initialIntegrations = [
 ];
 
 function IntegrationsPanel() {
-  const [integrations, setIntegrations] = useState(initialIntegrations);
-  const toggle = (i: number) =>
-    setIntegrations((prev) =>
-      prev.map((x, idx) => (idx === i ? { ...x, enabled: !x.enabled } : x))
-    );
-
   return (
-    <Card className="divide-y divide-slate-100">
-      {integrations.map((it, i) => (
-        <div
-          key={it.name}
-          className="flex items-center justify-between gap-4 px-5 py-4"
-        >
-          <div>
-            <div className="text-sm font-semibold text-slate-800">{it.name}</div>
-            <div className="text-xs text-slate-500">{it.desc}</div>
-          </div>
-          <button
-            onClick={() => toggle(i)}
-            className={`relative h-6 w-11 flex-none rounded-full transition ${
-              it.enabled ? "bg-emerald-500" : "bg-slate-300"
-            }`}
-            aria-label={`Toggle ${it.name}`}
+    <div>
+      <LaterNote>
+        Integrations are <b>Key Travel-managed</b> connections configured during
+        Agent-assisted onboarding (booking system, MS Business Central, SSO,
+        payments). In MVP the Org Admin sees this as a <b>read-only status</b>;
+        self-serve integration management is post-MVP.
+      </LaterNote>
+      <Card className="divide-y divide-slate-100">
+        {initialIntegrations.map((it) => (
+          <div
+            key={it.name}
+            className="flex items-center justify-between gap-4 px-5 py-4"
           >
+            <div>
+              <div className="text-sm font-semibold text-slate-800">{it.name}</div>
+              <div className="text-xs text-slate-500">{it.desc}</div>
+            </div>
             <span
-              className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition ${
-                it.enabled ? "left-[22px]" : "left-0.5"
+              className={`flex-none rounded-full px-2.5 py-1 text-xs font-semibold ${
+                it.enabled
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-slate-100 text-slate-500"
               }`}
-            />
-          </button>
-        </div>
-      ))}
-    </Card>
+            >
+              {it.enabled ? "Connected" : "Available · post-MVP"}
+            </span>
+          </div>
+        ))}
+      </Card>
+    </div>
   );
 }
