@@ -7,7 +7,12 @@ import type {
   TravelRequestDraft,
   TripType,
 } from "../types";
-import { buildApprovalChain, evaluatePolicy, formatMoney } from "../lib/policy";
+import {
+  buildApprovalChain,
+  evaluatePolicy,
+  formatMoney,
+  seniorityLabel,
+} from "../lib/policy";
 import {
   cabinClassLabel,
   carClassLabel,
@@ -109,8 +114,11 @@ export function CreateRequest() {
 
   const deptOf = (name: string) =>
     orgUsers.find((u) => u.name === name)?.department ?? "";
+  const seniorityOf = (name: string) =>
+    orgUsers.find((u) => u.name === name)?.seniority ?? "STAFF";
   const primaryTraveler = travelerNames[0] ?? state.currentUserName;
   const primaryDept = deptOf(primaryTraveler) || initialDept;
+  const primarySeniority = seniorityOf(primaryTraveler);
 
   // In-progress booking being added.
   const [stage, setStage] = useState<Stage>("builder");
@@ -237,8 +245,13 @@ export function CreateRequest() {
     const top = [...items].sort(
       (a, b) => b.draft.estimatedCost - a.draft.estimatedCost
     )[0];
-    return { ...top.draft, travelerName: primaryTraveler, department: primaryDept };
-  }, [items, primaryTraveler, primaryDept]);
+    return {
+      ...top.draft,
+      travelerName: primaryTraveler,
+      department: primaryDept,
+      travelerSeniority: primarySeniority,
+    };
+  }, [items, primaryTraveler, primaryDept, primarySeniority]);
   const previewChain = useMemo(
     () => (previewDraft ? buildApprovalChain(currentOrg, previewDraft) : []),
     [previewDraft, currentOrg]
@@ -261,6 +274,7 @@ export function CreateRequest() {
             travelerName: tn,
             requestedByName: state.currentUserName,
             department: dept,
+            travelerSeniority: seniorityOf(tn),
             purpose,
             tripId,
             tripName: name,
@@ -472,6 +486,13 @@ export function CreateRequest() {
                   ? primaryTraveler
                   : `${travelerNames.length} travelers`}
               </p>
+              {travelerNames.length <= 1 && primarySeniority !== "STAFF" && (
+                <p className="mb-3 -mt-2">
+                  <span className="inline-flex rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                    {seniorityLabel[primarySeniority]} — may add VIP/leadership oversight
+                  </span>
+                </p>
+              )}
               <div className="space-y-1 text-sm">
                 {(["FLIGHT", "HOTEL", "CAR"] as const).map((t) => {
                   const count = items.filter((i) => i.draft.tripType === t).length;
@@ -586,6 +607,8 @@ export function CreateRequest() {
             evaluatePolicy(currentOrg, {
               estimatedCost: price,
               destination: draft.destination,
+              tripType: draft.tripType,
+              cabinClass: draft.cabinClass,
             }).inPolicy
           }
         />

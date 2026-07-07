@@ -17,11 +17,17 @@ export type CabinClass = "ECONOMY" | "PREMIUM_ECONOMY" | "BUSINESS" | "FIRST";
 export type RoomType = "STANDARD" | "DELUXE" | "SUITE";
 export type CarClass = "ECONOMY" | "COMPACT" | "SUV" | "PREMIUM";
 
+// Seniority of the traveler — a policy/approval dimension the client called out
+// ("employee role" as a trigger). Kept coarse-grained for the prototype.
+export type TravelerSeniority = "STAFF" | "MANAGER" | "EXECUTIVE";
+
 // When an approval step is triggered within an organization's chain.
 export type StepTrigger =
   | "ALWAYS" // every request goes through this step
   | "COST_OVER" // only when estimated cost exceeds `threshold`
   | "DESTINATION_RESTRICTED" // only when the destination is policy-restricted
+  | "CLASS_ABOVE" // only when the flight cabin exceeds `cabinThreshold`
+  | "ROLE_ABOVE" // only when the traveler's seniority is at/above `roleThreshold`
   | "OUT_OF_POLICY"; // only when the request breaches a policy rule
 
 // A configurable approval step as defined by an organization admin.
@@ -32,12 +38,15 @@ export interface ApprovalStepConfig {
   approverName: string; // demo stand-in for a resolved approver
   trigger: StepTrigger;
   threshold?: number; // used when trigger === "COST_OVER"
+  cabinThreshold?: CabinClass; // used when trigger === "CLASS_ABOVE"
+  roleThreshold?: TravelerSeniority; // used when trigger === "ROLE_ABOVE"
 }
 
 // Rules that determine whether a request is within an organization's policy.
 export interface PolicyRules {
   maxTripCost: number; // soft cap; above this the trip is out-of-policy
   restrictedDestinations: string[]; // require extra scrutiny / approval
+  maxCabinClass?: CabinClass; // highest permitted flight cabin; above = out-of-policy
   maxAdvanceBookingDays?: number; // informational only in the prototype
   notes?: string;
 }
@@ -64,6 +73,7 @@ export interface User {
   role: Role;
   department: string;
   title: string;
+  seniority?: TravelerSeniority; // defaults to STAFF when unset
 }
 
 // ---- Runtime (per-request) types ----
@@ -131,6 +141,7 @@ export interface TravelRequestDraft {
   destination: string; // city / country - used by the policy engine + summary
   purpose: string;
   estimatedCost: number;
+  travelerSeniority?: TravelerSeniority; // drives role-based approval triggers
   justification?: string; // required when out-of-policy (soft enforcement)
 
   // Trip linking: a flight, hotel and car request can belong to one trip.

@@ -20,6 +20,7 @@ export const organizations: Organization[] = [
     policy: {
       maxTripCost: 1500,
       restrictedDestinations: ["Russia", "Belarus", "Iran", "Venezuela"],
+      maxCabinClass: "ECONOMY",
       maxAdvanceBookingDays: 90,
       notes:
         "Travel to high-risk / sanctioned regions requires security sign-off. Economy class only.",
@@ -39,6 +40,14 @@ export const organizations: Organization[] = [
         approverName: "Daniel Reyes",
         trigger: "DESTINATION_RESTRICTED",
       },
+      {
+        id: "hope-3",
+        order: 3,
+        name: "Country Director (VIP oversight)",
+        approverName: "Grace Adeyemi",
+        trigger: "ROLE_ABOVE",
+        roleThreshold: "EXECUTIVE",
+      },
     ],
     departmentBudgets: [
       { department: "Field Operations", limitAmount: 60000 },
@@ -55,9 +64,10 @@ export const organizations: Organization[] = [
     policy: {
       maxTripCost: 3500,
       restrictedDestinations: ["Russia", "Belarus"],
+      maxCabinClass: "PREMIUM_ECONOMY",
       maxAdvanceBookingDays: 180,
       notes:
-        "Conference travel must map to a grant/project code. Premium economy allowed on long-haul.",
+        "Conference travel must map to a grant/project code. Premium economy allowed on long-haul; business class needs Dean sign-off.",
     },
     approvalSteps: [
       {
@@ -75,6 +85,14 @@ export const organizations: Organization[] = [
         trigger: "COST_OVER",
         threshold: 2000,
       },
+      {
+        id: "atlas-3",
+        order: 3,
+        name: "Faculty Dean",
+        approverName: "Prof. Alan Grant",
+        trigger: "CLASS_ABOVE",
+        cabinThreshold: "PREMIUM_ECONOMY",
+      },
     ],
     departmentBudgets: [
       { department: "Physics", limitAmount: 45000 },
@@ -91,6 +109,7 @@ export const organizations: Organization[] = [
     policy: {
       maxTripCost: 2500,
       restrictedDestinations: ["Russia", "Iran", "North Korea"],
+      maxCabinClass: "ECONOMY",
       maxAdvanceBookingDays: 120,
       notes:
         "All international travel is centrally coordinated. Out-of-policy trips need compliance review.",
@@ -260,7 +279,8 @@ export const users: User[] = [
     orgId: "org-hope",
     role: "TRAVELER",
     department: "Field Operations",
-    title: "WASH Specialist",
+    title: "Head of Field Operations",
+    seniority: "EXECUTIVE",
   },
   {
     id: "u-17",
@@ -1079,7 +1099,64 @@ export const seedRequests: TravelRequest[] = [
     1
   ),
 
+  // Pending — Flight — in policy, but traveler is an Executive/VIP, so the
+  // ROLE_ABOVE trigger adds a Country Director approval (employee-role dimension).
+  buildRequest(
+    organizations[0],
+    {
+      travelerName: "Fatima Al-Sayed",
+      requestedByName: "Fatima Al-Sayed",
+      department: "Field Operations",
+      tripType: "FLIGHT",
+      destination: "Nairobi, Kenya",
+      purpose: "Regional leadership summit",
+      estimatedCost: 1180,
+      travelerSeniority: "EXECUTIVE",
+      origin: "London (LHR)",
+      departDate: "2026-09-10",
+      returnDate: "2026-09-16",
+      cabinClass: "ECONOMY",
+      oneWay: false,
+      airline: "Kenya Airways",
+      flightNumber: "KQ101",
+      departTime: "21:15",
+      arriveTime: "07:45",
+      durationLabel: "8h 30m",
+      stops: 0,
+    },
+    "2026-06-30T11:20:00.000Z"
+  ),
+
   // ===================== Atlas University =====================
+  // Pending — Flight — within budget, but BUSINESS class exceeds Atlas's
+  // premium-economy cap: out of policy on travel class, and the CLASS_ABOVE
+  // trigger routes it to the Faculty Dean (travel-class dimension).
+  buildRequest(
+    organizations[1],
+    {
+      travelerName: "Dr. Omar Farouk",
+      requestedByName: "Dr. Omar Farouk",
+      department: "Physics",
+      tripType: "FLIGHT",
+      destination: "Zurich, Switzerland",
+      purpose: "Keynote — international physics congress",
+      estimatedCost: 3000,
+      cabinClass: "BUSINESS",
+      oneWay: false,
+      origin: "London (LHR)",
+      departDate: "2026-10-20",
+      returnDate: "2026-10-24",
+      airline: "SWISS",
+      flightNumber: "LX345",
+      departTime: "09:20",
+      arriveTime: "12:05",
+      durationLabel: "1h 45m",
+      stops: 0,
+      justification:
+        "Overnight keynote commitments; Dean-approved business class for long day of engagements.",
+    },
+    "2026-06-29T15:10:00.000Z"
+  ),
   buildRequest(
     organizations[1],
     {

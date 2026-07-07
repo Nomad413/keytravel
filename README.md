@@ -49,22 +49,29 @@ npm run preview   # preview the production build
   one-way; hotels capture check-in/out, room type, guests; cars capture pick-up/drop-off
   locations, dates, and car class). All three feed the same policy and approval engine.
 - **Live policy engine** — as a request is entered, it is evaluated against the selected
-  organization's policy (cost limit, restricted destinations) with clear in-policy /
-  warning / violation flags (soft enforcement: out-of-policy travel is allowed but must be
-  justified and is escalated).
+  organization's policy (cost limit, restricted destinations, **maximum cabin / travel
+  class**) with clear in-policy / warning / violation flags (soft enforcement: out-of-policy
+  travel is allowed but must be justified and is escalated).
 - **Configurable multi-level approvals** — an approval chain is generated per request from
   the organization's rules. Steps can trigger *always*, *over a cost threshold*, on a
-  *restricted destination*, or when a request is *out of policy*.
+  *restricted destination*, when the **cabin is above an allowed class**, when a senior/VIP
+  traveler needs **leadership oversight** (Manager / Executive — e.g. duty-of-care and
+  visibility for senior staff, not a penalty), or when a request is *out of policy* — matching
+  the trigger dimensions the client listed (cost, destination, employee role, travel class,
+  policy exceptions). Role is a fully configurable dimension: an org could equally add
+  oversight for *junior* staff or exempt executives.
 - **Different orgs, different chains** — three seeded organizations produce visibly
   different chains for the same trip:
-  - **HopeBridge Relief (NGO):** single Line Manager, plus a Security Officer for restricted destinations.
-  - **Atlas University:** Department Head, plus a Grants & Finance gate for trips over GBP 2,000.
-  - **MediGlobal Health:** three-level chain (Line Manager, Regional Director over GBP 1,000, Compliance for out-of-policy).
+  - **HopeBridge Relief (NGO):** Line Manager, plus a Security Officer for restricted destinations and a Country Director for **Executive/VIP travelers** (economy-only policy).
+  - **Atlas University:** Department Head, a Grants & Finance gate for trips over GBP 2,000, and a Faculty Dean when the **cabin is above premium economy**.
+  - **MediGlobal Health:** three-level chain (Line Manager, Regional Director over GBP 1,000, Compliance for out-of-policy; economy-only policy).
 - **Full trip lifecycle** — `Pending (level 1..n) -> Approved -> Booked -> Completed`, plus
   `Rejected` and `Cancelled`, with book / manage / cancel / complete actions and a full audit
   trail per trip.
 - **Finance flow** — once booked, an invoice is raised and moves through
-  `Issued -> Validated -> Reconciled -> Paid`, with a statements view.
+  `Issued -> Validated -> Reconciled -> Paid`, with a statements view. Reflects the client's
+  model: **centralized invoicing + corporate card payments**, invoices **generated in-platform**
+  (the existing booking system exposes no invoicing API) and **synced to MS Business Central**.
 - **Self-service administration** — an admin console for users, policies, approval workflows
   (reorder/add/edit steps and triggers), department budgets, and integrations.
 
@@ -98,9 +105,15 @@ Switch **Role** and **Organization** in the top bar; navigation adapts to the ro
    audit trail.
 4. **Finance.** Switch role to Finance, open Finance, and move an invoice from Issued →
    Validated → Reconciled → Paid; check Statements.
-5. **Org Admin.** Switch role to Administrator, open Admin console, edit a policy or reorder an
-   approval workflow, and view Budgets. Switch Organization to *MediGlobal Health* to show a
-   completely different three-level chain from the same engine.
+5. **Org Admin.** Switch role to Administrator, open Admin console, edit a policy (note the
+   **maximum cabin class**) or reorder an approval workflow (triggers now include **cabin above
+   class** and **employee role at/above**), and view Budgets. Switch Organization to
+   *MediGlobal Health* to show a completely different three-level chain from the same engine.
+6. **Travel-class & employee-role dimensions.** Switch Organization to *Atlas University* and,
+   as a Traveler, request a **Business-class** flight within budget — it flags out-of-policy on
+   travel class and routes to the Faculty Dean. Then open the **Chain simulator** (Approver/Admin)
+   and toggle **Cabin class** and **Traveler role** to watch the chain grow. (Seeded examples:
+   Atlas *Dr. Omar Farouk* business-class trip; HopeBridge *Fatima Al-Sayed* Executive trip.)
 
 ## Project structure
 

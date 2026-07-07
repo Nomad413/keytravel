@@ -169,6 +169,25 @@ export const viewLabel: Record<ViewId, string> = {
   notifications: "Notifications",
 };
 
+// MVP vs later-phase scope for each view, so the demo makes the 9-month MVP
+// boundary self-evident. "MVP" = part of the 9-month golden path; "Later" =
+// target/post-MVP capability shown for vision (e.g. org self-serve config,
+// advanced analytics, cross-client agent console, what-if simulator).
+export type ViewScope = "MVP" | "Later";
+export const viewScope: Record<ViewId, ViewScope> = {
+  dashboard: "MVP",
+  create: "MVP",
+  trips: "MVP",
+  approvals: "MVP",
+  finance: "MVP",
+  activity: "MVP",
+  notifications: "MVP",
+  admin: "MVP", // core admin is MVP; org self-serve policy/workflow config is flagged inside
+  reporting: "Later",
+  simulate: "Later",
+  clients: "Later",
+};
+
 export function labelForView(view: ViewId, role: Role): string {
   if (view === "trips") {
     if (role === "TRAVELER") return "My trips";

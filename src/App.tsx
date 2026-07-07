@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useApp } from "./state/store";
 import type { Role } from "./types";
-import { labelForView, roleMeta, roleNav } from "./lib/flows";
+import { labelForView, roleMeta, roleNav, viewScope } from "./lib/flows";
 import { RoleDashboard } from "./screens/RoleDashboard";
 import { CreateRequest } from "./screens/CreateRequest";
 import { MyTrips } from "./screens/MyTrips";
@@ -24,6 +24,26 @@ const ROLES: Role[] = [
   "ADMIN",
   "FINANCE",
 ];
+
+// Small scope badge shown on nav items: MVP (in the 9-month scope) vs Later
+// (target / post-MVP capability shown for vision).
+function ScopeTag({ scope }: { scope: "MVP" | "Later" }) {
+  const isMvp = scope === "MVP";
+  return (
+    <span
+      title={
+        isMvp
+          ? "Part of the 9-month MVP scope"
+          : "Target / post-MVP capability shown for vision"
+      }
+      className={`ml-1.5 rounded px-1 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+        isMvp ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-500"
+      }`}
+    >
+      {isMvp ? "MVP" : "Later"}
+    </span>
+  );
+}
 
 export default function App() {
   const { state, dispatch, orgRequests } = useApp();
@@ -107,6 +127,7 @@ export default function App() {
                 }`}
               >
                 {labelForView(view, role)}
+                <ScopeTag scope={viewScope[view]} />
                 {view === "approvals" && pendingCount > 0 && (
                   <span className="ml-1.5 inline-flex items-center rounded-full bg-amber-100 px-1.5 py-0.5 text-xs font-semibold text-amber-700">
                     {pendingCount}
@@ -132,6 +153,16 @@ export default function App() {
       </main>
 
       <footer className="mx-auto max-w-6xl px-4 pb-8 pt-2 text-center text-xs text-slate-400">
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2">
+          <span className="rounded bg-emerald-100 px-1 py-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+            MVP
+          </span>
+          <span>= in the ~9-month scope ·</span>
+          <span className="rounded bg-slate-200 px-1 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-500">
+            Later
+          </span>
+          <span>= target / post-MVP capability shown for vision.</span>
+        </div>
         Prototype for the Key Travel presale assignment · in-memory data, no
         backend · refresh to reset.
       </footer>

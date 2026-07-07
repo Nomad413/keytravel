@@ -18,7 +18,7 @@ const invoiceMeta: Record<
   VALIDATED: {
     label: "Validated",
     cls: "bg-brand-100 text-brand-700",
-    nextLabel: "Reconcile with ERP",
+    nextLabel: "Reconcile with Business Central",
   },
   RECONCILED: {
     label: "Reconciled",
@@ -47,6 +47,21 @@ export function Finance() {
         title="Finance"
         subtitle={`Invoicing, payments and reconciliation for ${currentOrg.name}. Acting as ${state.currentUserName}.`}
       />
+
+      <div className="mb-4 flex flex-wrap gap-2 text-xs">
+        <span className="rounded-full bg-brand-50 px-3 py-1 font-medium text-brand-700">
+          Centralized invoicing
+        </span>
+        <span className="rounded-full bg-brand-50 px-3 py-1 font-medium text-brand-700">
+          Corporate card payments
+        </span>
+        <span className="rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-600">
+          Synced to MS Business Central
+        </span>
+        <span className="rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-600">
+          Invoicing generated in-platform (no booking-system invoice API)
+        </span>
+      </div>
 
       <div className="mb-4 flex gap-2">
         <TabButton active={tab === "invoices"} onClick={() => setTab("invoices")}>

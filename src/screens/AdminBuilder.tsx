@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useApp } from "../state/store";
-import type { ApprovalStepConfig, StepTrigger } from "../types";
+import type {
+  ApprovalStepConfig,
+  CabinClass,
+  StepTrigger,
+  TravelerSeniority,
+} from "../types";
 import {
   Button,
   Card,
@@ -8,12 +13,20 @@ import {
   SectionTitle,
   inputClass,
 } from "../components/ui";
-import { formatMoney } from "../lib/policy";
+import {
+  CABIN_ORDER,
+  SENIORITY_ORDER,
+  formatMoney,
+  seniorityLabel,
+} from "../lib/policy";
+import { cabinClassLabel } from "../lib/trip";
 
 const triggerLabels: Record<StepTrigger, string> = {
   ALWAYS: "Always",
   COST_OVER: "Cost over threshold",
   DESTINATION_RESTRICTED: "Restricted destination",
+  CLASS_ABOVE: "Cabin above class",
+  ROLE_ABOVE: "VIP / senior-role oversight",
   OUT_OF_POLICY: "Out of policy",
 };
 
@@ -167,6 +180,47 @@ export function AdminBuilder() {
                         />
                       </Field>
                     )}
+                    {step.trigger === "CLASS_ABOVE" && (
+                      <Field label="Cabin above (fires when higher)">
+                        <select
+                          className={inputClass}
+                          value={step.cabinThreshold ?? "PREMIUM_ECONOMY"}
+                          onChange={(e) =>
+                            updateStep(step.id, {
+                              cabinThreshold: e.target.value as CabinClass,
+                            })
+                          }
+                        >
+                          {CABIN_ORDER.map((c) => (
+                            <option key={c} value={c}>
+                              {cabinClassLabel[c]}
+                            </option>
+                          ))}
+                        </select>
+                      </Field>
+                    )}
+                    {step.trigger === "ROLE_ABOVE" && (
+                      <Field
+                        label="Applies to role at/above"
+                        hint="Adds a leadership/VIP oversight step for senior travelers (duty-of-care, visibility)."
+                      >
+                        <select
+                          className={inputClass}
+                          value={step.roleThreshold ?? "EXECUTIVE"}
+                          onChange={(e) =>
+                            updateStep(step.id, {
+                              roleThreshold: e.target.value as TravelerSeniority,
+                            })
+                          }
+                        >
+                          {SENIORITY_ORDER.map((s) => (
+                            <option key={s} value={s}>
+                              {seniorityLabel[s]}
+                            </option>
+                          ))}
+                        </select>
+                      </Field>
+                    )}
                   </div>
                 </div>
               ))}
@@ -200,6 +254,14 @@ export function AdminBuilder() {
                 <dt className="text-slate-400">Policy cost limit</dt>
                 <dd className="font-medium text-slate-700">
                   {formatMoney(currentOrg.policy.maxTripCost, currentOrg.currency)}
+                </dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-slate-400">Max cabin class</dt>
+                <dd className="font-medium text-slate-700">
+                  {currentOrg.policy.maxCabinClass
+                    ? cabinClassLabel[currentOrg.policy.maxCabinClass]
+                    : "Any"}
                 </dd>
               </div>
               <div>

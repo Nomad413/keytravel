@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useApp } from "../state/store";
-import type { Role } from "../types";
-import { formatMoney } from "../lib/policy";
+import type { CabinClass, Role } from "../types";
+import { CABIN_ORDER, formatMoney } from "../lib/policy";
+import { cabinClassLabel } from "../lib/trip";
 import { roleMeta } from "../lib/flows";
 import {
   Button,
@@ -19,10 +20,10 @@ type AdminTab =
   | "budgets"
   | "integrations";
 
-const TABS: { id: AdminTab; label: string }[] = [
+const TABS: { id: AdminTab; label: string; later?: boolean }[] = [
   { id: "users", label: "Users" },
-  { id: "policies", label: "Policies" },
-  { id: "workflows", label: "Approval workflows" },
+  { id: "policies", label: "Policies", later: true },
+  { id: "workflows", label: "Approval workflows", later: true },
   { id: "budgets", label: "Budgets" },
   { id: "integrations", label: "Integrations" },
 ];
@@ -49,6 +50,18 @@ export function AdminConsole() {
             }`}
           >
             {t.label}
+            {t.later && (
+              <span
+                title="Org self-service configuration is post-MVP; in MVP Key Travel configures this"
+                className={`ml-1.5 rounded px-1 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                  tab === t.id
+                    ? "bg-white/25 text-white"
+                    : "bg-slate-200 text-slate-500"
+                }`}
+              >
+                Later
+              </span>
+            )}
           </button>
         ))}
       </div>
@@ -134,12 +147,16 @@ function PoliciesPanel() {
   const [restricted, setRestricted] = useState(
     currentOrg.policy.restrictedDestinations.join(", ")
   );
+  const [maxCabinClass, setMaxCabinClass] = useState<CabinClass>(
+    currentOrg.policy.maxCabinClass ?? "FIRST"
+  );
   const [notes, setNotes] = useState(currentOrg.policy.notes ?? "");
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     setMaxTripCost(currentOrg.policy.maxTripCost);
     setRestricted(currentOrg.policy.restrictedDestinations.join(", "));
+    setMaxCabinClass(currentOrg.policy.maxCabinClass ?? "FIRST");
     setNotes(currentOrg.policy.notes ?? "");
     setSaved(false);
   }, [currentOrg.id]);
@@ -155,6 +172,7 @@ function PoliciesPanel() {
           .split(",")
           .map((s) => s.trim())
           .filter(Boolean),
+        maxCabinClass,
         notes,
       },
     });
@@ -190,6 +208,25 @@ function PoliciesPanel() {
               setSaved(false);
             }}
           />
+        </Field>
+        <Field
+          label="Maximum cabin class"
+          hint="Flights above this cabin are out of policy (travel-class rule)."
+        >
+          <select
+            className={inputClass}
+            value={maxCabinClass}
+            onChange={(e) => {
+              setMaxCabinClass(e.target.value as CabinClass);
+              setSaved(false);
+            }}
+          >
+            {CABIN_ORDER.map((c) => (
+              <option key={c} value={c}>
+                {cabinClassLabel[c]}
+              </option>
+            ))}
+          </select>
         </Field>
       </div>
       <div className="mt-4">
@@ -273,8 +310,13 @@ const initialIntegrations = [
     enabled: true,
   },
   {
-    name: "Finance / ERP",
-    desc: "Sync invoices and reconciliation with the finance system.",
+    name: "MS Business Central (Finance / ERP)",
+    desc: "Centralized invoicing & reconciliation synced to MS Business Central.",
+    enabled: true,
+  },
+  {
+    name: "Payments (corporate card)",
+    desc: "Corporate card payments via a PCI-compliant provider (tokenized).",
     enabled: true,
   },
   {

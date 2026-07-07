@@ -1,24 +1,42 @@
 import { useMemo, useState } from "react";
 import { useApp } from "../state/store";
-import { buildApprovalChain, evaluatePolicy, formatMoney } from "../lib/policy";
+import {
+  CABIN_ORDER,
+  SENIORITY_ORDER,
+  buildApprovalChain,
+  evaluatePolicy,
+  formatMoney,
+  seniorityLabel,
+} from "../lib/policy";
+import type { CabinClass, TravelerSeniority } from "../types";
+import { cabinClassLabel } from "../lib/trip";
 import { Card, Field, FlagRow, SectionTitle, inputClass } from "../components/ui";
 import { ApprovalChainView } from "../components/ApprovalChainView";
 
 // A "what-if" tool to show how the same organization's rules produce
-// different approval chains as cost / destination change.
+// different approval chains as cost / destination / cabin / role change.
 export function ChainSimulator() {
   const { currentOrg } = useApp();
   const [cost, setCost] = useState(1200);
   const [destination, setDestination] = useState("Madrid, Spain");
+  const [cabinClass, setCabinClass] = useState<CabinClass>("ECONOMY");
+  const [travelerSeniority, setTravelerSeniority] =
+    useState<TravelerSeniority>("STAFF");
 
-  const draft = { estimatedCost: cost, destination };
+  const draft = {
+    estimatedCost: cost,
+    destination,
+    tripType: "FLIGHT" as const,
+    cabinClass,
+    travelerSeniority,
+  };
   const evaluation = useMemo(
     () => evaluatePolicy(currentOrg, draft),
-    [currentOrg, cost, destination]
+    [currentOrg, cost, destination, cabinClass, travelerSeniority]
   );
   const chain = useMemo(
     () => buildApprovalChain(currentOrg, draft),
-    [currentOrg, cost, destination]
+    [currentOrg, cost, destination, cabinClass, travelerSeniority]
   );
 
   const presets = [
@@ -88,6 +106,46 @@ export function ChainSimulator() {
                 onChange={(e) => setDestination(e.target.value)}
               />
             </Field>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Field
+                label="Cabin class"
+                hint={`Max allowed: ${
+                  currentOrg.policy.maxCabinClass
+                    ? cabinClassLabel[currentOrg.policy.maxCabinClass]
+                    : "any"
+                }`}
+              >
+                <select
+                  className={inputClass}
+                  value={cabinClass}
+                  onChange={(e) => setCabinClass(e.target.value as CabinClass)}
+                >
+                  {CABIN_ORDER.map((c) => (
+                    <option key={c} value={c}>
+                      {cabinClassLabel[c]}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              <Field
+                label="Traveler role"
+                hint="Senior/VIP travel can add a leadership-oversight step (duty-of-care, visibility)."
+              >
+                <select
+                  className={inputClass}
+                  value={travelerSeniority}
+                  onChange={(e) =>
+                    setTravelerSeniority(e.target.value as TravelerSeniority)
+                  }
+                >
+                  {SENIORITY_ORDER.map((s) => (
+                    <option key={s} value={s}>
+                      {seniorityLabel[s]}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+            </div>
           </div>
 
           <div className="mt-5 space-y-2">
@@ -114,9 +172,9 @@ export function ChainSimulator() {
             </p>
             <p className="mt-1">
               Each organization configures its own steps and triggers (always,
-              cost thresholds, restricted destinations, out-of-policy). The same
-              trip can require one approval at one organization and three at
-              another — all from the same engine.
+              cost thresholds, restricted destinations, travel class, employee
+              role, out-of-policy). The same trip can require one approval at one
+              organization and three at another — all from the same engine.
             </p>
           </div>
         </Card>
