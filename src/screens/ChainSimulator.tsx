@@ -59,6 +59,15 @@ export function ChainSimulator() {
         title="Approval chain simulator"
         subtitle={`See how ${currentOrg.name}'s policy and approval rules react to different trips. Adjust the inputs or try a preset.`}
       />
+      <div className="mb-5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
+        <span className="mr-2 rounded-full bg-amber-200 px-2 py-0.5 font-semibold text-amber-900">
+          Later · post-MVP
+        </span>
+        A preview / testing tool that pairs with <b>org self-serve policy
+        configuration</b> (post-MVP), letting an admin dry-run a workflow before
+        publishing. In the MVP, Key Travel configures these rules; here it also
+        illustrates the engine during demos.
+      </div>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card className="p-6">
           <div className="mb-4 flex flex-wrap gap-2">

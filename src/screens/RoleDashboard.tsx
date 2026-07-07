@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useApp } from "../state/store";
 import type { Role } from "../types";
 import { labelForView, roleMeta, roleNav } from "../lib/flows";
@@ -47,20 +48,51 @@ export function RoleDashboard() {
         </div>
       </Card>
 
-      {role === "AGENT" && <AgentDashboard />}
-      {role === "TRAVELER" && (
-        <TravelerDashboard mine={mine} company={company} currency={currency} />
-      )}
-      {role === "ARRANGER" && (
-        <ArrangerDashboard company={company} currency={currency} />
-      )}
-      {role === "APPROVER" && (
-        <ApproverDashboard company={company} currency={currency} />
-      )}
-      {role === "ADMIN" && <AdminDashboard company={company} currency={currency} />}
-      {role === "FINANCE" && <FinanceDashboard currency={currency} />}
-
       <QuickActions role={role} />
+
+      <AnalyticsSection>
+        {role === "AGENT" && <AgentDashboard />}
+        {role === "TRAVELER" && (
+          <TravelerDashboard mine={mine} company={company} currency={currency} />
+        )}
+        {role === "ARRANGER" && (
+          <ArrangerDashboard company={company} currency={currency} />
+        )}
+        {role === "APPROVER" && (
+          <ApproverDashboard company={company} currency={currency} />
+        )}
+        {role === "ADMIN" && (
+          <AdminDashboard company={company} currency={currency} />
+        )}
+        {role === "FINANCE" && <FinanceDashboard currency={currency} />}
+      </AnalyticsSection>
+    </div>
+  );
+}
+
+// The MVP "home" for every role is intentionally light: the welcome header +
+// Quick actions above route into the real MVP worklists (approval queue, trips,
+// finance, admin console). The metrics/charts below are grouped and clearly
+// flagged as the *post-MVP* reporting & analytics vision — data is instrumented
+// from MVP, but these dashboards are a later phase.
+function AnalyticsSection({ children }: { children: ReactNode }) {
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center gap-3 border-t border-slate-200 pt-6">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-slate-500">
+          Reporting &amp; analytics
+        </h3>
+        <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-semibold text-amber-700">
+          Later · post-MVP vision
+        </span>
+      </div>
+      <p className="max-w-3xl text-xs text-slate-500">
+        In the MVP, each role works from lightweight <b>worklists</b> (approval
+        queue, my trips, invoices) plus the quick actions above. KPI data is
+        captured from day one, but the dashboards below preview the{" "}
+        <b>post-MVP reporting &amp; analytics</b> layer rather than MVP scope.
+      </p>
+      {children}
     </div>
   );
 }
@@ -427,9 +459,14 @@ function QuickActions({ role }: { role: Role }) {
   const quickLinks = roleNav[role].filter((v) => v !== "dashboard");
   return (
     <Card className="p-6">
-      <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-slate-500">
-        Quick actions
-      </h3>
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-slate-500">
+          Quick actions
+        </h3>
+        <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
+          MVP · your worklist
+        </span>
+      </div>
       <div className="flex flex-wrap gap-3">
         {quickLinks.map((v) => (
           <button
