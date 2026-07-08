@@ -1,0 +1,12 @@
+{
+  "name": "prd-tools",
+  "private": true,
+  "type": "module",
+  "description": "Isolated tooling to render deliverables markdown to print-ready HTML/PDF.",
+  "scripts": {
+    "build:all": "node build-all.mjs"
+  },
+  "dependencies": {
+    "marked": "^12.0.0"
+  }
+}

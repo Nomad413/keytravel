@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Solution Vision — Key Travel B2B Platform</title>
+<style>
+  :root{
+    --brand:#0e5a8a; --brand-2:#0a3f61; --accent:#e0792b;
+    --ink:#12212b; --muted:#5b6b76; --line:#d8e0e6; --soft:#f4f7f9;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.5;margin:0;font-size:10.5pt}
+  .page{max-width:820px;margin:0 auto;padding:32px 40px}
+  h1{font-size:23pt;color:var(--brand-2);line-height:1.15;margin:0 0 .3rem;border-bottom:3px solid var(--brand);padding-bottom:.35rem}
+  h2{font-size:15pt;color:var(--brand-2);margin:1.5rem 0 .5rem;padding-top:.2rem;border-top:1px solid var(--line)}
+  h3{font-size:11.5pt;color:var(--brand);margin:1rem 0 .3rem}
+  p{margin:.4rem 0}
+  a{color:var(--brand);text-decoration:none}
+  code{background:var(--soft);padding:.05rem .3rem;border-radius:4px;font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  ul,ol{margin:.3rem 0 .6rem;padding-left:1.3rem}
+  li{margin:.15rem 0}
+  strong{color:var(--brand-2)}
+  blockquote{margin:.6rem 0;padding:.5rem .9rem;background:var(--soft);border-left:4px solid var(--accent);color:var(--ink);border-radius:0 6px 6px 0}
+  blockquote p{margin:.2rem 0}
+  hr{border:none;border-top:1px solid var(--line);margin:1.4rem 0}
+  table{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:9pt}
+  th,td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}
+  th{background:var(--brand);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:var(--soft)}
+  h2,h3{break-after:avoid-page;page-break-after:avoid}
+  table,blockquote,pre{break-inside:avoid;page-break-inside:avoid}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  @page{size:A4;margin:16mm 14mm}
+  @media print{.page{max-width:none;margin:0;padding:0}a{color:var(--ink)}.noprint{display:none}}
+  .noprint{position:fixed;top:10px;right:10px;background:var(--brand);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .mermaid{display:flex;justify-content:center;margin:1rem 0;background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:14px}
+  .mermaid svg{max-width:100%;height:auto}
+  .mermaid,figure{break-inside:avoid;page-break-inside:avoid}
+  img{max-width:100%;height:auto;display:block;margin:1rem auto;border:1px solid var(--line);border-radius:8px}
+  p:has(> img){break-inside:avoid;page-break-inside:avoid}
+</style>
+</head>
+<body>
+<button class="noprint" onclick="window.print()">Save as PDF ⌘/Ctrl+P</button>
+<div class="page">
+<h1>Solution Vision — Key Travel B2B Platform</h1>
+<p><strong>A self-service travel platform for Key Travel&#39;s organisational clients</strong> — staff book their own travel within their organisation&#39;s rules, requests are approved automatically along the way, and Key Travel&#39;s existing booking system does the heavy lifting behind the scenes.</p>
+<h2>The problem</h2>
+<ul>
+<li>Booking today is <strong>internal and agent-only</strong> — clients phone or email, and Key Travel agents do everything by hand.</li>
+<li><strong>Approvals and invoicing are manual</strong> → slow, error-prone, and hard to scale.</li>
+<li>There&#39;s no single view of a multi-part <strong>trip</strong>.</li>
+</ul>
+<h2>Vision</h2>
+<blockquote>
+<p>One self-service platform where client organisations manage their people, travel rules and end-to-end trips — with the right approvals applied automatically and Key Travel&#39;s booking system behind the scenes — so travel is booked <strong>faster, within the rules, and with far less manual effort</strong> on both sides.</p>
+</blockquote>
+<h2>Principles</h2>
+<ul>
+<li><strong>Reuse, don&#39;t rebuild</strong> — build on Key Travel&#39;s existing booking system.</li>
+<li><strong>Start small, ship fast</strong> — deliver the core end-to-end flow first, then add breadth.</li>
+<li><strong>Set up, don&#39;t re-program</strong> — organisations, rules and approvals are settings, not custom code.</li>
+<li><strong>Safe and private by design</strong> — secure login (SSO/MFA), data privacy (GDPR) and an activity log from day one.</li>
+</ul>
+<h2>Who it&#39;s for</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>In a nutshell</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Traveller</td>
+<td>Requests a trip that follows the rules; tracks its status</td>
+</tr>
+<tr>
+<td>Travel Arranger</td>
+<td>Books on behalf of colleagues</td>
+</tr>
+<tr>
+<td>Approver (levels 1–3)</td>
+<td>Approves requests, with the policy context in front of them</td>
+</tr>
+<tr>
+<td>Organisation Administrator</td>
+<td>Manages their own people (add/remove staff, set roles)</td>
+</tr>
+<tr>
+<td>Finance</td>
+<td>Handles one central invoice; sends figures to Microsoft Business Central</td>
+</tr>
+<tr>
+<td>Key Travel Agent</td>
+<td>Sets up and supports client organisations; handles exceptions</td>
+</tr>
+</tbody></table>
+<h2>The core journey (MVP)</h2>
+<p><strong>Request → check against the rules → 1–3 approvals → book → central invoice.</strong> Travel that breaks a rule is still allowed <strong>with a justification</strong> (a gentle nudge, not a hard block) and simply gets an extra approval.</p>
+<div class="mermaid">flowchart LR
+  A["Create request"] --> B["Search options"] --> C["Check the rules"] --> D["1-3 approvals"] --> E["Book"] --> F["Central invoice"]</div>
+<p>How approvals adapt to the rules — in-policy trips take the standard path; out-of-policy trips need a justification and pick up one extra approval:</p>
+<div class="mermaid">flowchart TD
+  R["Travel request"] --> C{"Within the rules?"}
+  C -- "Yes" --> A["Standard approvals (1-3 levels)"]
+  C -- "No" --> J["Add a justification"] --> X["Extra approval added"] --> A
+  A --> B["Booked"]</div>
+<p>The end-to-end golden path in detail — showing each role&#39;s actions, the policy check, the justification branch for out-of-policy travel, and invoice export to Microsoft Business Central:</p>
+<p><img src="assets/user_flow_golden_path.png" alt="End-to-end user flow (golden path) across Traveller, Platform, Approver, Key Travel Agent and Finance roles"></p>
+<h2>How it fits together (in plain terms)</h2>
+<ul>
+<li>A <strong>web app</strong> (fully usable on desktop; mobile/tablet-optimized layouts are a fast-follow) backed by behind-the-scenes services for people, rules, trips and money; a <strong>native mobile app (iOS/Android) comes later</strong>.</li>
+<li>A safe <strong>&quot;translator&quot; layer</strong> reuses Key Travel&#39;s existing booking APIs (search / book / change / cancel) instead of rebuilding them; <strong>invoicing is handled by the new platform</strong> and sent to <strong>Microsoft Business Central</strong>.</li>
+<li><strong>Biggest unknown:</strong> the existing system&#39;s connections and documentation are incomplete → we investigate this first, in the discovery week, before finalising the plan.</li>
+</ul>
+<div class="mermaid">flowchart LR
+  U["People and organisations"] --> W["New platform (website + services)"]
+  W --> T["Safe 'translator' layer"] --> K["Existing booking system"]
+  W --> BC["Microsoft Business Central"]</div>
+<h2>Getting organisations &amp; people started</h2>
+<ul>
+<li>For the pilot, organisations are set up <strong>by hand by Key Travel</strong> (single sign-on (SSO), a starter staff list, and — where useful — a welcome email at go-live). This is a <strong>manual/internal step, not a built onboarding product</strong>; a self-service onboarding flow comes later.</li>
+<li>The <strong>organisation&#39;s administrator manages their own people</strong>; the travel rules, approvals, budgets and system connections are set up by Key Travel in the MVP.</li>
+</ul>
+<p>Onboarding at a glance — solid boxes are in the MVP; the dashed items come later:</p>
+<div class="mermaid">flowchart TD
+  subgraph MVP["MVP"]
+    direction TB
+    O1["Key Travel sets up the org by hand"] --> O2["Org admin gets access at go-live"]
+    O2 --> S1["Staff sign in via SSO (auto-created)"]
+    O2 --> S2["Admin invites people / uploads staff list"]
+    S1 --> R["Ready: request, approve, book"]
+    S2 --> R
+  end
+  subgraph LATER["Later"]
+    direction TB
+    L1["Organisation self-service onboarding"]
+    L2["Automatic HR-system sync (SCIM/HRIS)"]
+  end
+  R -.-> L1
+  R -.-> L2</div>
+<h2>How we&#39;ll measure success</h2>
+<p>More self-service (fewer phone/email bookings) · less agent time per booking · faster request-to-confirmation · fewer booking errors · <strong>higher client satisfaction</strong> · <strong>revenue growth</strong> · pilot organisations live and active. <em>(Measured from the MVP; charts and dashboards come later.)</em></p>
+
+</div>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({
+    startOnLoad: false, theme: "base", securityLevel: "loose",
+    flowchart: { useMaxWidth: true, htmlLabels: false, curve: "basis" },
+    themeVariables: {
+      primaryColor: "#eaf2f8", primaryBorderColor: "#0e5a8a", primaryTextColor: "#12212b",
+      lineColor: "#0e5a8a", fontFamily: "Segoe UI, Roboto, Helvetica, Arial, sans-serif", fontSize: "14px",
+    },
+  });
+  // Render each diagram explicitly with a UNIQUE id via mermaid.render() rather
+  // than the batch mermaid.run(). run() was misplacing diagrams (one rendered
+  // into another's container, leaving overlapping/empty boxes). Rendering one
+  // at a time into its own element is deterministic.
+  async function renderAll() {
+    const nodes = Array.from(document.querySelectorAll(".mermaid"));
+    for (let i = 0; i < nodes.length; i++) {
+      const el = nodes[i];
+      const code = (el.textContent || "").trim();
+      if (!code) continue;
+      try {
+        const { svg, bindFunctions } = await mermaid.render("mmd-" + i, code);
+        el.innerHTML = svg;
+        if (bindFunctions) bindFunctions(el);
+      } catch (e) {
+        console.error("mermaid render failed for #" + i, e);
+      }
+    }
+  }
+  try { await renderAll(); } catch (e) { console.error(e); }
+  window.__diagramsReady = true;
+</script>
+</body>
+</html>

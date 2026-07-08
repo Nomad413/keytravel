@@ -15,4 +15,6 @@ vite.config.d.ts
 *.docx
 *.doc
 *.png
+*.xlsx
+*.xls
 .env*

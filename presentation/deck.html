@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Key Travel B2B Platform — Presale Proposal</title>
+<style>
+  :root{
+    --brand:#0e5a8a; --brand-2:#0a3f61; --accent:#e0792b; --ok:#1f9d63;
+    --ink:#12212b; --muted:#5b6b76; --line:#e3e9ee; --bg:#f4f7f9; --card:#ffffff;
+    --violet:#6d4bd8; --emerald:#0f9d63; --teal:#0d9488; --indigo:#4f46e5;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#0b1620}
+  .deck{height:100vh;width:100vw;overflow:hidden;position:relative}
+  .slide{
+    position:absolute;inset:0;display:none;flex-direction:column;
+    padding:6vh 7vw 9vh;background:
+      radial-gradient(1200px 500px at 85% -10%, rgba(14,90,138,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(224,121,43,.08), transparent 55%),
+      var(--bg);
+    animation:fade .35s ease;
+  }
+  .slide.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .kicker{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:700;margin-bottom:.6rem}
+  h1{font-size:3.2rem;line-height:1.05;margin:.2rem 0;color:var(--brand-2)}
+  h2{font-size:2.1rem;line-height:1.1;margin:0 0 1.2rem;color:var(--brand-2)}
+  h3{margin:0 0 .3rem;font-size:1.05rem}
+  p{color:var(--muted);line-height:1.5;margin:.3rem 0}
+  .lead{font-size:1.35rem;color:var(--ink);max-width:60ch;line-height:1.4}
+  .muted{color:var(--muted)}
+  .grid{display:grid;gap:18px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 1px 2px rgba(16,33,43,.04)}
+  .card .t{font-weight:700;color:var(--brand-2)}
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:.18rem .5rem;border-radius:999px;background:#eaf2f8;color:var(--brand);letter-spacing:.03em}
+  .pill.m{background:#e7f6ee;color:var(--ok)}
+  .pill.w{background:#fdeee3;color:var(--accent)}
+  ul.clean{list-style:none;padding:0;margin:0}
+  ul.clean li{padding:.35rem 0 .35rem 1.5rem;position:relative;color:var(--ink)}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.85rem;width:8px;height:8px;border-radius:2px;background:var(--accent)}
+  ul.tick li::before{content:"✓";background:none;color:var(--ok);font-weight:800;top:.3rem;width:auto;height:auto}
+  .flowline{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1 1 0;min-width:120px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:6px}
+  .step .n{font-size:.72rem;font-weight:800;color:var(--brand)}
+  .step .s{font-weight:700;margin:.2rem 0;font-size:.95rem}
+  .step .d{font-size:.78rem;color:var(--muted)}
+  .arrowrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .arrow{color:var(--brand);font-size:1.4rem;font-weight:700}
+  .roles{display:flex;gap:14px;flex-wrap:wrap}
+  .role{flex:1 1 30%;min-width:210px;border-left:4px solid var(--brand);background:var(--card);border-radius:10px;padding:12px 16px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .role.v{border-left-color:var(--violet)} .role.e{border-left-color:var(--emerald)}
+  .role.a{border-left-color:var(--accent)} .role.t{border-left-color:var(--teal)}
+  .role.b{border-left-color:var(--brand)} .role.i{border-left-color:var(--indigo)}
+  .role .r{font-weight:700} .role .rb{font-size:.8rem;color:var(--muted)}
+  .kpi{display:flex;flex-direction:column;gap:2px}
+  .kpi .big{font-size:1.5rem;font-weight:800;color:var(--brand-2)}
+  .two{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;height:100%}
+  .imgwrap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:0 8px 30px rgba(11,22,32,.12)}
+  .imgwrap img{width:100%;display:block;border-radius:8px}
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--brand-2);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+  .phase{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .phase .ph{font-weight:800;color:var(--brand)}
+  .phase .wk{font-size:.75rem;color:var(--accent);font-weight:700;letter-spacing:.04em}
+  .foot{position:absolute;left:7vw;right:7vw;bottom:3.2vh;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);padding-top:10px}
+  .nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;z-index:20;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:999px;padding:6px 10px;backdrop-filter:blur(6px)}
+  .nav button{border:none;background:var(--brand);color:#fff;width:30px;height:30px;border-radius:50%;font-size:1rem;cursor:pointer}
+  .nav button:disabled{background:#b9c6d0;cursor:default}
+  .dots{display:flex;gap:5px;margin:0 6px}
+  .dot{width:7px;height:7px;border-radius:50%;background:#c6d2db;cursor:pointer}
+  .dot.on{background:var(--brand);width:18px;border-radius:4px}
+  .counter{position:fixed;top:18px;right:24px;color:var(--brand-2);font-weight:700;font-size:.85rem;z-index:20;background:rgba(255,255,255,.8);padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
+  .title-hero{display:flex;flex-direction:column;justify-content:center;height:100%}
+  .badge{display:inline-flex;gap:8px;align-items:center;font-weight:700;color:var(--brand);background:#eaf2f8;padding:6px 12px;border-radius:999px;font-size:.85rem;width:max-content}
+  .tag{font-size:.72rem;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+  .quote{border-left:4px solid var(--accent);padding:.4rem 0 .4rem 1rem;font-size:1.05rem;color:var(--ink);font-style:italic}
+  @media (max-width:900px){h1{font-size:2.2rem}h2{font-size:1.5rem}.two{grid-template-columns:1fr}.g4,.g3{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="counter" id="counter">1 / 10</div>
+<div class="deck" id="deck">
+
+  <!-- 1 TITLE -->
+  <section class="slide active">
+    <div class="title-hero">
+      <div class="badge">Trinetix · Presale &amp; Discovery Proposal</div>
+      <div class="kicker" style="margin-top:1.4rem">Key Travel</div>
+      <h1>A self-service B2B platform<br/>for organizational travel</h1>
+      <p class="lead" style="margin-top:1rem">From a manual, agent-only process to a platform where client organisations request their own travel — checked against their rules and sent through the right approvals — with Key Travel's booking system behind the scenes.</p>
+      <div style="display:flex;gap:10px;margin-top:1.6rem">
+        <span class="tag">Vision</span><span class="tag">Backlog</span><span class="tag">Assumptions</span><span class="tag">Discovery</span><span class="tag">Prototype</span>
+      </div>
+    </div>
+    <div class="foot"><span>Presale Consultant proposal</span><span>Key Travel · B2B Travel Management Platform</span></div>
+  </section>
+
+  <!-- 2 CONTEXT + WHAT WE HEARD -->
+  <section class="slide">
+    <div class="kicker">The situation &amp; what we heard</div>
+    <h2>A manual, agent-only process that can't scale</h2>
+    <div class="grid g2" style="align-items:start">
+      <div>
+        <ul class="clean">
+          <li>Booking is <b>internal &amp; agent-only</b> — clients phone/email; agents do the work.</li>
+          <li><b>Approvals &amp; invoicing are manual</b> — slow and error-prone.</li>
+          <li>No unified concept of a multi-segment <b>trip</b>.</li>
+          <li>Growth = <b>more agent hours per booking</b>.</li>
+        </ul>
+        <div class="grid g3" style="margin-top:14px">
+          <div class="kpi"><span class="big">~9 mo</span><span class="muted">MVP timeline</span></div>
+          <div class="kpi"><span class="big">Limited</span><span class="muted">budget</span></div>
+          <div class="kpi"><span class="big">Minimal</span><span class="muted">client tech input</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="t">What the clarification call told us</div>
+        <ul class="clean" style="margin-top:6px">
+          <li><b>#1 need:</b> a complete self-service request → approval flow, connected to the booking system.</li>
+          <li>Goal is <b>efficiency &amp; growth</b>, not selling software.</li>
+          <li>Approvals: <b>1–3 configurable levels</b> (cost, destination, seniority, cabin class).</li>
+          <li>Reuse the existing booking <b>APIs</b> (search / book / change / cancel); <b>no invoicing API</b> → Microsoft Business Central.</li>
+          <li>6 roles + Key Travel Agent · pilot first · SSO/MFA login &amp; data privacy · <b>launch fast</b>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span>Context &amp; clarifications</span><span>2 / 10</span></div>
+  </section>
+
+  <!-- 3 VISION -->
+  <section class="slide">
+    <div class="title-hero">
+      <div class="kicker">Solution vision</div>
+      <div class="quote">One self-service platform where client organisations manage their people, travel rules and end-to-end trips — with the right approvals applied automatically and Key Travel's booking system behind the scenes — so travel is booked <b>faster, within the rules, with far less manual effort</b>.</div>
+      <div class="grid g4" style="margin-top:1.6rem">
+        <div class="card"><div class="t">Reuse, don't rebuild</div><p>Build on the existing booking system.</p></div>
+        <div class="card"><div class="t">Start small, ship fast</div><p>Deliver the core flow first, then add more.</p></div>
+        <div class="card"><div class="t">Set up, don't re-code</div><p>Organisations, rules &amp; approvals are settings.</p></div>
+        <div class="card"><div class="t">Safe &amp; private by design</div><p>SSO/MFA login, data privacy (GDPR) &amp; activity log from day one.</p></div>
+      </div>
+    </div>
+    <div class="foot"><span>Vision &amp; principles</span><span>3 / 10</span></div>
+  </section>
+
+  <!-- 4 ROLES -->
+  <section class="slide">
+    <div class="kicker">Who we're building for</div>
+    <h2>Six roles across the client &amp; Key Travel</h2>
+    <div class="roles">
+      <div class="role v"><div class="r">Traveller</div><div class="rb">Requests a trip that follows the rules; tracks its status.</div></div>
+      <div class="role e"><div class="r">Travel Arranger</div><div class="rb">Books <b>on behalf of</b> colleagues.</div></div>
+      <div class="role a"><div class="r">Approver (levels 1–3)</div><div class="rb">Approves requests, with the rule context in front of them.</div></div>
+      <div class="role t"><div class="r">Organisation Administrator</div><div class="rb">Manages their own people (add/remove staff, set roles).</div></div>
+      <div class="role b"><div class="r">Finance User</div><div class="rb">Handles one central invoice; sends figures to Microsoft Business Central.</div></div>
+      <div class="role i"><div class="r">Key Travel Agent</div><div class="rb">Sets up &amp; supports organisations; handles exceptions (deeper act-on-behalf comes later).</div></div>
+    </div>
+    <p class="muted" style="margin-top:16px">Each role has its own end-to-end flow — you can switch role and organisation in the prototype's top bar.</p>
+    <div class="foot"><span>Roles</span><span>4 / 10</span></div>
+  </section>
+
+  <!-- 5 CORE JOURNEY -->
+  <section class="slide">
+    <div class="kicker">The core journey (MVP)</div>
+    <h2>Request → check the rules → approval → book → invoice</h2>
+    <div class="flowline">
+      <div class="step"><div class="n">01</div><div class="s">Create request</div><div class="d">Who, where, when, why.</div></div>
+      <div class="step"><div class="n">02</div><div class="s">Search options</div><div class="d">Flights/hotels/cars via the existing booking system.</div></div>
+      <div class="step"><div class="n">03</div><div class="s">Check the rules</div><div class="d">Cost, destination, department, seniority, cabin class.</div></div>
+      <div class="step"><div class="n">04</div><div class="s">Approvals (1–3)</div><div class="d">Configurable; extra step if a rule is broken.</div></div>
+      <div class="step"><div class="n">05</div><div class="s">Book</div><div class="d">Through the existing system; agent handles exceptions.</div></div>
+      <div class="step"><div class="n">06</div><div class="s">Invoice</div><div class="d">Central invoice → Business Central.</div></div>
+    </div>
+    <p class="muted" style="margin-top:16px">Travel that breaks a rule is <b>allowed with a justification</b> (a nudge, not a block) and gets an extra approval. This one journey touches every part of the MVP — and is exactly what the prototype demonstrates.</p>
+    <div class="foot"><span>Core journey</span><span>5 / 10</span></div>
+  </section>
+
+  <!-- 6 FIRST-VERSION SCOPE + PLAN -->
+  <section class="slide">
+    <div class="kicker">What we'll build · MVP vs later</div>
+    <h2>What's in the MVP — and what waits</h2>
+    <div class="grid g2" style="align-items:start">
+      <div class="card">
+        <div class="t"><span class="pill m">MVP</span></div>
+        <ul class="tick" style="margin-top:8px">
+          <li>Organisations, people &amp; roles; book on behalf of others</li>
+          <li>Key Travel-assisted onboarding (manual setup for pilot orgs); accounts via single sign-on (SSO)</li>
+          <li>Travel request form + one unified trip + status</li>
+          <li>Travel rules (limits, destinations, cabin class, department, seniority) with warn &amp; justify</li>
+          <li>1–3 levels of approval + an approver to-do list</li>
+          <li>Link to the existing booking system + agent hand-off</li>
+          <li>Central invoicing + company card + Business Central</li>
+          <li>Secure login (SSO/MFA), data privacy, activity log</li>
+          <li><b>Web app</b> — usable on desktop; mobile/tablet-optimized layouts a fast-follow</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="t"><span class="pill w">LATER</span></div>
+        <ul class="clean" style="margin-top:8px">
+          <li>Key Travel Agent act-on-behalf across organisations</li>
+          <li>Organisations configuring their own rules</li>
+          <li>Automatic sync with an HR system</li>
+          <li>Preview/test approval chains · reporting dashboards &amp; charts</li>
+          <li>Connecting directly to airlines/hotels</li>
+          <li>Traveller safety tracking (duty-of-care)</li>
+          <li>Automatic train &amp; bus booking</li>
+          <li>Individuals paying themselves · a <b>native mobile app</b> (iOS/Android)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid g4" style="margin-top:14px">
+      <div class="phase"><div class="wk">Week 1</div><div class="ph">Discovery</div><p>1-week working sprint; start investigating the booking link.</p></div>
+      <div class="phase"><div class="wk">Mo 1–4</div><div class="ph">Stage 1</div><p>Request → Approve (organisations, rules, approvals, login).</p></div>
+      <div class="phase"><div class="wk">Mo 4–8</div><div class="ph">Stage 2</div><p>Approve → Book → Invoice + Business Central.</p></div>
+      <div class="phase"><div class="wk">Mo 8–9</div><div class="ph">Final polish</div><p>Security, client testing, pilot go-live.</p></div>
+    </div>
+    <div class="foot"><span>MVP scope &amp; 9-month plan</span><span>6 / 10</span></div>
+  </section>
+
+  <!-- 7 HOW IT FITS TOGETHER -->
+  <section class="slide">
+    <div class="kicker">How it fits together</div>
+    <h2>Reuse the booking system; own the new workflow</h2>
+    <div class="arrowrow" style="margin:0 0 18px;justify-content:center;flex-wrap:wrap">
+      <div class="step" style="flex:0 1 auto;margin:4px"><div class="s">People &amp; organisations</div></div>
+      <span class="arrow">→</span>
+      <div class="step" style="flex:0 1 auto;margin:4px"><div class="s">New platform</div><div class="d">website + services</div></div>
+      <span class="arrow">→</span>
+      <div class="step" style="flex:0 1 auto;margin:4px"><div class="s">Safe "translator" layer</div></div>
+      <span class="arrow">→</span>
+      <div class="step" style="flex:0 1 auto;margin:4px"><div class="s">Existing booking system</div></div>
+      <span class="arrow" style="color:var(--accent)">↘</span>
+      <div class="step" style="flex:0 1 auto;margin:4px;border-color:var(--accent)"><div class="s">Business Central</div><div class="d">invoicing</div></div>
+    </div>
+    <div class="grid g2" style="align-items:start">
+      <div>
+        <ul class="clean">
+          <li>A <b>web app</b> (usable on desktop; mobile/tablet layouts a fast-follow) plus behind-the-scenes services; a <b>native mobile app</b> comes later.</li>
+          <li>A safe <b>"translator" layer</b> reuses the existing booking APIs (search / book / change / cancel) and shields the new platform from the old system's quirks.</li>
+          <li>The <b>new platform creates invoices</b> (there's no automatic link) and sends the figures to <b>Microsoft Business Central</b>.</li>
+          <li><b>Secure login (SSO/MFA)</b>; each organisation kept separate; an activity log; GDPR + <b>PCI DSS</b> card handling.</li>
+          <li>Built for <b>many organisations</b> on one platform — from a pilot to hundreds.</li>
+        </ul>
+      </div>
+      <div class="card" style="background:#0e2231;color:#dbe7f0;border-color:#123044">
+        <div class="t" style="color:#8fd0ff">#1 unknown</div>
+        <p style="color:#b9cbd8">The existing APIs and documentation are incomplete, and there's no invoicing API. We <b style="color:#fff">investigate this first, in the discovery week</b> — before finalising the plan.</p>
+      </div>
+    </div>
+    <div class="foot"><span>How it fits together</span><span>7 / 10</span></div>
+  </section>
+
+  <!-- 8 ONBOARDING & SUPPORT -->
+  <section class="slide">
+    <div class="kicker">Getting organisations &amp; people started</div>
+    <h2>Onboarding &amp; support</h2>
+    <div class="grid g3" style="align-items:start">
+      <div class="card">
+        <div class="t">Organisations — set up by hand</div>
+        <ul class="clean" style="margin-top:6px">
+          <li>For the pilot, Key Travel sets up each organisation <b>manually</b> (structure, rules, login, Business Central) — not a built onboarding product.</li>
+          <li>A welcome email at go-live gives the admin a ready-to-use workspace <span class="tag">nice-to-have</span>.</li>
+          <li><span class="tag">later</span> a self-service onboarding flow so organisations set themselves up.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="t">Staff — nothing for client IT to do</div>
+        <ul class="clean" style="margin-top:6px">
+          <li>Accounts <b>created automatically on first login</b> via single sign-on (SSO), as a traveller.</li>
+          <li>Admin <b>invites people</b>, or <b>uploads a staff list</b> → invitation emails.</li>
+          <li><span class="tag">later</span> automatic sync with the HR system.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="t">Who manages what</div>
+        <ul class="clean" style="margin-top:6px">
+          <li>The organisation's admin manages <b>their own people</b>.</li>
+          <li>Rules, approvals, budgets &amp; system connections are <b>set up by Key Travel</b> at first.</li>
+          <li>Key Travel provides <b>assisted support</b> during the pilot; deeper act-on-behalf &amp; org self-service come <b>later</b>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span>Onboarding &amp; support</span><span>8 / 10</span></div>
+  </section>
+
+  <!-- 9 PROTOTYPE -->
+  <section class="slide">
+    <div class="two">
+      <div>
+        <div class="kicker">Bonus — working prototype</div>
+        <h2>The flow, made tangible</h2>
+        <ul class="clean">
+          <li><b>Role-based</b> workspace — switch role &amp; organisation in the top bar.</li>
+          <li><b>Live rules</b> — spending limits &amp; restricted destinations show OK / warning / breach.</li>
+          <li><b>Approval chains that differ per organisation</b>, from one flexible setup.</li>
+          <li>Full lifecycle: <b>Pending → Approved → Booked → Completed</b> + invoicing.</li>
+        </ul>
+        <p class="muted" style="margin-top:10px">A live web app, deployed online · clear "MVP / later" labels throughout.</p>
+        <p class="muted"><b>Demo:</b> flight to Nairobi (in policy) → change to Khartoum £2,100 (restricted + over budget → justification, chain grows) → approve → book → invoice.</p>
+      </div>
+      <div class="imgwrap">
+        <img src="../User_Flow.png" alt="User Flows by Role" />
+      </div>
+    </div>
+    <div class="foot"><span>Prototype</span><span>9 / 10</span></div>
+  </section>
+
+  <!-- 10 CLOSE -->
+  <section class="slide">
+    <div class="title-hero">
+      <div class="kicker">In summary</div>
+      <h1 style="font-size:2.6rem">Ship the spine, prove it with a pilot,<br/>scale with confidence</h1>
+      <div class="grid g3" style="margin-top:1.4rem">
+        <div class="card"><div class="t">Focused MVP</div><p>Self-service request → approval → booking → central invoicing, connected to the existing system.</p></div>
+        <div class="card"><div class="t">De-risked early</div><p>Investigate the booking link early, state our assumptions, and keep scope flexible for a 9-month, budget-limited delivery.</p></div>
+        <div class="card"><div class="t">Tangible today</div><p>A working, role-based prototype of the client's #1 need — ready to demo.</p></div>
+      </div>
+      <p class="lead" style="margin-top:1.6rem"><b>Next step:</b> a focused <b>1-week discovery week</b> — starting the booking-system investigation and agreeing scope, rules &amp; technical approach — then straight into building.</p>
+      <p class="muted" style="margin-top:.6rem">Success measured by more self-service, less agent time per booking, faster confirmations, fewer booking errors, higher client satisfaction, and revenue growth.</p>
+    </div>
+    <div class="foot"><span>Trinetix · Presale Consultant</span><span>10 / 10</span></div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="prev" aria-label="Previous">‹</button>
+  <div class="dots" id="dots"></div>
+  <button id="next" aria-label="Next">›</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsWrap = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  let i = 0;
+  slides.forEach((_, idx) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (idx === 0 ? ' on' : '');
+    d.addEventListener('click', () => go(idx));
+    dotsWrap.appendChild(d);
+  });
+  const dots = Array.from(document.querySelectorAll('.dot'));
+  function go(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('on', idx === i));
+    counter.textContent = (i + 1) + ' / ' + slides.length;
+    prev.disabled = i === 0; next.disabled = i === slides.length - 1;
+  }
+  prev.addEventListener('click', () => go(i - 1));
+  next.addEventListener('click', () => go(i + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
+    if (e.key === 'Home') go(0); if (e.key === 'End') go(slides.length - 1);
+  });
+  go(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Key Travel — Presale Artifacts</title>
+<style>
+  :root{
+    --brand:#0e5a8a; --brand-2:#0a3f61; --accent:#e0792b;
+    --ink:#12212b; --muted:#5b6b76; --line:#d8e0e6; --soft:#f4f7f9;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.5;margin:0;font-size:10.5pt}
+  .page{max-width:820px;margin:0 auto;padding:32px 40px}
+  h1{font-size:23pt;color:var(--brand-2);line-height:1.15;margin:0 0 .3rem;border-bottom:3px solid var(--brand);padding-bottom:.35rem}
+  h2{font-size:15pt;color:var(--brand-2);margin:1.5rem 0 .5rem;padding-top:.2rem;border-top:1px solid var(--line)}
+  h3{font-size:11.5pt;color:var(--brand);margin:1rem 0 .3rem}
+  p{margin:.4rem 0}
+  a{color:var(--brand);text-decoration:none}
+  code{background:var(--soft);padding:.05rem .3rem;border-radius:4px;font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  ul,ol{margin:.3rem 0 .6rem;padding-left:1.3rem}
+  li{margin:.15rem 0}
+  strong{color:var(--brand-2)}
+  blockquote{margin:.6rem 0;padding:.5rem .9rem;background:var(--soft);border-left:4px solid var(--accent);color:var(--ink);border-radius:0 6px 6px 0}
+  blockquote p{margin:.2rem 0}
+  hr{border:none;border-top:1px solid var(--line);margin:1.4rem 0}
+  table{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:9pt}
+  th,td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}
+  th{background:var(--brand);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:var(--soft)}
+  h2,h3{break-after:avoid-page;page-break-after:avoid}
+  table,blockquote,pre{break-inside:avoid;page-break-inside:avoid}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  @page{size:A4;margin:16mm 14mm}
+  @media print{.page{max-width:none;margin:0;padding:0}a{color:var(--ink)}.noprint{display:none}}
+  .noprint{position:fixed;top:10px;right:10px;background:var(--brand);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .mermaid{display:flex;justify-content:center;margin:1rem 0;background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:14px}
+  .mermaid svg{max-width:100%;height:auto}
+  .mermaid,figure{break-inside:avoid;page-break-inside:avoid}
+  img{max-width:100%;height:auto;display:block;margin:1rem auto;border:1px solid var(--line);border-radius:8px}
+  p:has(> img){break-inside:avoid;page-break-inside:avoid}
+</style>
+</head>
+<body>
+<button class="noprint" onclick="window.print()">Save as PDF ⌘/Ctrl+P</button>
+<div class="page">
+<h1>Key Travel — Presale Artifacts</h1>
+<p><strong>Trinetix · Presale Consultant</strong> — self-service B2B travel platform for Key Travel&#39;s organizational clients (NGO / humanitarian / academic). Presale / early-discovery stage.</p>
+<h2>Deliverables</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Artifact</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Clarification questions &amp; answers</td>
+<td><a href="01_Clarification_Questions.md"><code>01_Clarification_Questions.md</code></a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Solution vision</td>
+<td><a href="02_Solution_Vision.md"><code>02_Solution_Vision.md</code></a></td>
+</tr>
+<tr>
+<td>3</td>
+<td>High-level backlog</td>
+<td><a href="03_High_Level_Backlog.md"><code>03_High_Level_Backlog.md</code></a></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Key assumptions</td>
+<td><a href="04_Key_Assumptions.md"><code>04_Key_Assumptions.md</code></a></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Discovery workshop plan</td>
+<td><a href="05_Discovery_Workshops.md"><code>05_Discovery_Workshops.md</code></a></td>
+</tr>
+<tr>
+<td>+</td>
+<td>Presentation deck</td>
+<td><a href="../presentation/deck.html"><code>../presentation/deck.html</code></a></td>
+</tr>
+<tr>
+<td>+</td>
+<td>Interactive prototype</td>
+<td>React app (<code>src/</code>) · live on Vercel</td>
+</tr>
+</tbody></table>
+<p>Each deliverable is also available as a <strong>PDF</strong> (same name) for easy sharing. The prototype shows the client&#39;s #1 need in action: <strong>request → check against the rules → 1–3 approvals → booking → invoicing</strong>, tailored per role, with clear &quot;MVP / later&quot; labels.</p>
+<h2>The one-line proposal</h2>
+<p>In about 9 months, deliver a small self-service flow — <strong>request → approval → booking → central invoice</strong> — for a pilot group of NGO/humanitarian organisations. It reuses Key Travel&#39;s existing booking system, adds easy-to-configure organisations, travel rules and approvals, and connects to Microsoft Business Central for finance.</p>
+
+</div>
+
+</body>
+</html>

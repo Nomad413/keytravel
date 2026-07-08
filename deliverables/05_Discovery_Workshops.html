@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Discovery Sprint (1 week)</title>
+<style>
+  :root{
+    --brand:#0e5a8a; --brand-2:#0a3f61; --accent:#e0792b;
+    --ink:#12212b; --muted:#5b6b76; --line:#d8e0e6; --soft:#f4f7f9;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.5;margin:0;font-size:10.5pt}
+  .page{max-width:820px;margin:0 auto;padding:32px 40px}
+  h1{font-size:23pt;color:var(--brand-2);line-height:1.15;margin:0 0 .3rem;border-bottom:3px solid var(--brand);padding-bottom:.35rem}
+  h2{font-size:15pt;color:var(--brand-2);margin:1.5rem 0 .5rem;padding-top:.2rem;border-top:1px solid var(--line)}
+  h3{font-size:11.5pt;color:var(--brand);margin:1rem 0 .3rem}
+  p{margin:.4rem 0}
+  a{color:var(--brand);text-decoration:none}
+  code{background:var(--soft);padding:.05rem .3rem;border-radius:4px;font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  ul,ol{margin:.3rem 0 .6rem;padding-left:1.3rem}
+  li{margin:.15rem 0}
+  strong{color:var(--brand-2)}
+  blockquote{margin:.6rem 0;padding:.5rem .9rem;background:var(--soft);border-left:4px solid var(--accent);color:var(--ink);border-radius:0 6px 6px 0}
+  blockquote p{margin:.2rem 0}
+  hr{border:none;border-top:1px solid var(--line);margin:1.4rem 0}
+  table{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:9pt}
+  th,td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}
+  th{background:var(--brand);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:var(--soft)}
+  h2,h3{break-after:avoid-page;page-break-after:avoid}
+  table,blockquote,pre{break-inside:avoid;page-break-inside:avoid}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  @page{size:A4;margin:16mm 14mm}
+  @media print{.page{max-width:none;margin:0;padding:0}a{color:var(--ink)}.noprint{display:none}}
+  .noprint{position:fixed;top:10px;right:10px;background:var(--brand);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .mermaid{display:flex;justify-content:center;margin:1rem 0;background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:14px}
+  .mermaid svg{max-width:100%;height:auto}
+  .mermaid,figure{break-inside:avoid;page-break-inside:avoid}
+  img{max-width:100%;height:auto;display:block;margin:1rem auto;border:1px solid var(--line);border-radius:8px}
+  p:has(> img){break-inside:avoid;page-break-inside:avoid}
+</style>
+</head>
+<body>
+<button class="noprint" onclick="window.print()">Save as PDF ⌘/Ctrl+P</button>
+<div class="page">
+<h1>Discovery Sprint (1 week)</h1>
+<p>A short, intensive week at the very start to agree the key decisions, so the team can begin building with confidence. We deliberately tackle the riskiest unknowns first — how the existing booking system connects, the travel rules, and security/privacy. Anything less urgent is sorted out as we go during the first build stage.</p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Focus</th>
+<th>Who from the client should join</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1</strong></td>
+<td>Goals, people &amp; roles, onboarding</td>
+<td>Project sponsor, Key Travel team, operations, IT</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Booking process, the &quot;trip&quot;, travel rules</td>
+<td>Experienced agents, approvers, administrators</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Booking-system link + payments &amp; invoicing</td>
+<td>Booking-system / IT experts, finance</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Security, privacy &amp; look-and-feel</td>
+<td>Security/privacy lead, brand owner</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>Final scope + technical plan</td>
+<td>Sponsor, technical lead</td>
+</tr>
+</tbody></table>
+<h3>Day 1 — Goals, people &amp; roles, onboarding</h3>
+<ul>
+<li>Agree <strong>what success looks like</strong> and how we&#39;ll measure it (self-service rate, agent time saved, request-to-confirmation time).</li>
+<li>Confirm the <strong>pilot organisations</strong> and the criteria that prove the portal is ready to scale.</li>
+<li>Walk through the <strong>six roles</strong> and exactly what each can see and do.</li>
+<li>Decide <strong>how staff get accounts</strong> — single sign-on (SSO), MFA, starter staff list, welcome email.</li>
+<li>Agree <strong>how Key Travel sets up and supports</strong> each organisation in the MVP (and what becomes self-service later).</li>
+</ul>
+<h3>Day 2 — Booking process, the &quot;trip&quot;, travel rules</h3>
+<ul>
+<li>Map <strong>today&#39;s agent-led booking process</strong> end to end and spot the manual pain points.</li>
+<li>Design the <strong>future self-service flow</strong>: request → policy check → approvals → book → invoice.</li>
+<li>Define what counts as <strong>one &quot;trip&quot;</strong> (multi-segment: flight + hotel + car).</li>
+<li>Agree the <strong>policy rules</strong> — spending limits, restricted destinations, cabin class, department, role/seniority — and how <strong>soft enforcement</strong> (warn + justify) behaves.</li>
+<li>Confirm <strong>who configures the rules</strong> (Key Travel-assisted in the MVP).</li>
+</ul>
+<h3>Day 3 — Booking-system link + payments &amp; invoicing</h3>
+<ul>
+<li>Review <strong>what the existing booking APIs cover</strong> (search / book / change / cancel) and where the gaps are.</li>
+<li>Assess <strong>documentation quality</strong> and the risks around the &quot;translator&quot; layer.</li>
+<li>Agree how the <strong>agent hand-off</strong> works for anything the platform can&#39;t complete.</li>
+<li>Define <strong>central invoicing</strong> and the <strong>Microsoft Business Central</strong> data flow (no invoicing API today).</li>
+<li>Confirm <strong>company-card payment</strong> and card-security (PCI) needs.</li>
+</ul>
+<h3>Day 4 — Security, privacy &amp; look-and-feel</h3>
+<ul>
+<li>Confirm <strong>login and access</strong> — SSO/MFA, roles &amp; permissions, session rules.</li>
+<li>Agree <strong>data privacy (GDPR)</strong> obligations and <strong>where data is stored</strong> (UK/EU — to confirm).</li>
+<li>Define the <strong>audit trail</strong>: who did what, and when.</li>
+<li>Review <strong>branding</strong> and walk the <strong>main screens</strong> (request, approvals queue, trip view).</li>
+</ul>
+<h3>Day 5 — Final scope + technical plan</h3>
+<ul>
+<li>Lock the <strong>MVP scope</strong> (Must features) and the <strong>Should/Could</strong> stretch list.</li>
+<li>Agree the <strong>release plan</strong> and milestones across the ~9 months.</li>
+<li>Confirm the <strong>high-level technical approach</strong> and the delivery team setup.</li>
+<li>Capture <strong>open risks and assumptions</strong> with owners and a follow-up date.</li>
+</ul>
+<p><strong>Happening in parallel (and continuing after the week):</strong> a technical deep-dive into the booking-system link (the biggest unknown — starts Day 3, continues into the first build stage) · an early design/branding starter · ongoing refinement of the plan as each part begins.</p>
+<p><strong>What we walk away with:</strong> an agreed first-version scope and to-do list · a map of the travel process and a clear definition of a &quot;trip&quot; · the policy &amp; approval rules · a plan (and risk list) for the booking-system link · the finance, security and privacy requirements · the technical foundation and delivery plan.</p>
+
+</div>
+
+</body>
+</html>
