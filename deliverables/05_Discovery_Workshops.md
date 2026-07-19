@@ -1,4 +1,6 @@
-# Discovery Sprint (1 week)
+# Discovery Sprint (1 week — minimum, working hypothesis)
+
+> **This 1-week plan is a working hypothesis — the *minimum* I'd propose, not a fixed ceiling.** A tightly-run week is enough to agree the decisions that unblock the build **provided** the right people are in the room and the booking-system experts are available. If the existing system turns out more complex, or stakeholders are harder to convene, discovery may need longer — or simply continue **alongside** early build. We'd rather start lean and extend if the evidence demands it than hold the whole team back waiting for perfect clarity.
 
 A short, intensive week at the very start to agree the key decisions, so the team can begin building with confidence. We deliberately tackle the riskiest unknowns first — how the existing booking system connects, the travel rules, and security/privacy. Anything less urgent is sorted out as we go during the first build stage.
 
@@ -43,6 +45,11 @@ A short, intensive week at the very start to agree the key decisions, so the tea
 - Confirm the **high-level technical approach** and the delivery team setup.
 - Capture **open risks and assumptions** with owners and a follow-up date.
 
-**Happening in parallel (and continuing after the week):** a technical deep-dive into the booking-system link (the biggest unknown — starts Day 3, continues into the first build stage) · an early design/branding starter · ongoing refinement of the plan as each part begins.
+## Build in parallel — discovery is not a gate
+To protect the ~9-month timeline, we **don't wait for all discovery results before starting**. Low-risk foundation and setup work begins on **Day 1**, in parallel with the workshops, and each stream picks up decisions the moment they land:
+- **Foundation & setup** (no discovery dependency): repositories, environments, CI/CD, the app skeleton, secure-login (SSO/MFA) scaffolding, and the multi-tenant structure.
+- **Booking-system "translator" spike** (the biggest unknown): the technical deep-dive into the existing APIs starts **Day 3** and continues into the first build stage.
+- **Design/branding starter:** early screens for the core request → approve → book flow.
+- **Continuous hand-off:** as each decision is agreed during the week, the relevant build stream starts immediately — so implementation **ramps up *with* discovery, not after it**.
 
 **What we walk away with:** an agreed first-version scope and to-do list · a map of the travel process and a clear definition of a "trip" · the policy & approval rules · a plan (and risk list) for the booking-system link · the finance, security and privacy requirements · the technical foundation and delivery plan.

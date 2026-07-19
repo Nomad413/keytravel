@@ -81,7 +81,7 @@ The work grouped into **epics**. Within each epic, features are listed **in user
 ## Rough 9-month timeline
 | Stage | When | What's delivered |
 |---|---|---|
-| **0 · Discovery** | Week 1 | A 1-week sprint to agree the plan; start investigating the booking-system link (continues afterwards) |
+| **0 · Discovery** | Week 1 (min.) | A 1-week sprint to agree the plan — a proposed **minimum**, could run longer. Build starts **in parallel** (foundation + booking-system spike); discovery is not a gate |
 | **1 · Request → Approve** | Months 1–4 | E1–E4: organisations, people, roles, onboarding, request + trip, policy rules, approvals, SSO/MFA |
 | **2 · Approve → Book → Invoice** | Months 4–8 | E5–E6: booking, changes/cancellations, invoicing, company card, Business Central |
 | **3 · Final polish + pilot** | Months 8–9 | E7 hardening: security, data residency, client testing, first pilot organisations go live |

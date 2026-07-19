@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Discovery Sprint (1 week)</title>
+<title>Discovery Sprint (1 week — minimum, working hypothesis)</title>
 <style>
   :root{
     --brand:#0e5a8a; --brand-2:#0a3f61; --accent:#e0792b;
@@ -45,7 +45,10 @@
 <body>
 <button class="noprint" onclick="window.print()">Save as PDF ⌘/Ctrl+P</button>
 <div class="page">
-<h1>Discovery Sprint (1 week)</h1>
+<h1>Discovery Sprint (1 week — minimum, working hypothesis)</h1>
+<blockquote>
+<p><strong>This 1-week plan is a working hypothesis — the <em>minimum</em> I&#39;d propose, not a fixed ceiling.</strong> A tightly-run week is enough to agree the decisions that unblock the build <strong>provided</strong> the right people are in the room and the booking-system experts are available. If the existing system turns out more complex, or stakeholders are harder to convene, discovery may need longer — or simply continue <strong>alongside</strong> early build. We&#39;d rather start lean and extend if the evidence demands it than hold the whole team back waiting for perfect clarity.</p>
+</blockquote>
 <p>A short, intensive week at the very start to agree the key decisions, so the team can begin building with confidence. We deliberately tackle the riskiest unknowns first — how the existing booking system connects, the travel rules, and security/privacy. Anything less urgent is sorted out as we go during the first build stage.</p>
 <table>
 <thead>
@@ -119,7 +122,14 @@
 <li>Confirm the <strong>high-level technical approach</strong> and the delivery team setup.</li>
 <li>Capture <strong>open risks and assumptions</strong> with owners and a follow-up date.</li>
 </ul>
-<p><strong>Happening in parallel (and continuing after the week):</strong> a technical deep-dive into the booking-system link (the biggest unknown — starts Day 3, continues into the first build stage) · an early design/branding starter · ongoing refinement of the plan as each part begins.</p>
+<h2>Build in parallel — discovery is not a gate</h2>
+<p>To protect the ~9-month timeline, we <strong>don&#39;t wait for all discovery results before starting</strong>. Low-risk foundation and setup work begins on <strong>Day 1</strong>, in parallel with the workshops, and each stream picks up decisions the moment they land:</p>
+<ul>
+<li><strong>Foundation &amp; setup</strong> (no discovery dependency): repositories, environments, CI/CD, the app skeleton, secure-login (SSO/MFA) scaffolding, and the multi-tenant structure.</li>
+<li><strong>Booking-system &quot;translator&quot; spike</strong> (the biggest unknown): the technical deep-dive into the existing APIs starts <strong>Day 3</strong> and continues into the first build stage.</li>
+<li><strong>Design/branding starter:</strong> early screens for the core request → approve → book flow.</li>
+<li><strong>Continuous hand-off:</strong> as each decision is agreed during the week, the relevant build stream starts immediately — so implementation <strong>ramps up <em>with</em> discovery, not after it</strong>.</li>
+</ul>
 <p><strong>What we walk away with:</strong> an agreed first-version scope and to-do list · a map of the travel process and a clear definition of a &quot;trip&quot; · the policy &amp; approval rules · a plan (and risk list) for the booking-system link · the finance, security and privacy requirements · the technical foundation and delivery plan.</p>
 
 </div>
