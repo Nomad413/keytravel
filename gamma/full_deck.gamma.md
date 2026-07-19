@@ -76,7 +76,7 @@ Within the MVP we prioritise **Must / Should / Could** — only the **Musts** ar
 
 | Stage | When | Focus |
 |-------|------|-------|
-| **Discovery** | Week 1 | A 1-week working sprint to agree the plan; start investigating the booking-system link (continues afterwards) |
+| **Discovery** | Week 1 (min.) | A 1-week working sprint — my proposed **minimum** hypothesis, could run longer. Build starts **in parallel** (foundation, SSO/MFA scaffolding, booking-system spike) — discovery is not a gate |
 | **Stage 1** | Mo 1–4 | Request → Approve: organisations, onboarding, rules, approvals, SSO/MFA login |
 | **Stage 2** | Mo 4–8 | Approve → Book → Invoice + Business Central |
 | **Final polish** | Mo 8–9 | Security, data-location setup, client testing, pilot go-live |
@@ -121,7 +121,7 @@ Time and budget are fixed, so **scope is what flexes** — we ship the "must-hav
 - **De-risked early** — investigate the booking link first, state our assumptions, keep scope flexible.
 - **Tangible today** — a working, role-based prototype ready to demo.
 
-**Next step:** a focused **1-week discovery week** — starting the booking-system investigation and agreeing scope, rules & technical approach — then straight into building. Success = more self-service, less agent time, faster confirmations, fewer errors, higher client satisfaction, revenue growth.
+**Next step:** a focused **1-week discovery** (my proposed minimum — could run longer) — starting the booking-system investigation and agreeing scope, rules & technical approach. Low-risk **foundation work starts in parallel** from Day 1, so building ramps up *with* discovery rather than after it. Success = more self-service, less agent time, faster confirmations, fewer errors, higher client satisfaction, revenue growth.
 
 ---
 
@@ -129,7 +129,7 @@ Time and budget are fixed, so **scope is what flexes** — we ship the "must-hav
 
 **Confirm first:** how the existing booking system really works (what it covers, its documentation, the invoicing gap) · who sets up the rules (Key Travel or the organisations) · where data must be stored (UK/EU) · agreement that scope is the flexible part · the onboarding & Key Travel support model.
 
-**Discovery (1-week sprint):** Day 1 goals, people & roles, onboarding · Day 2 today's process, the "trip" idea, the rules · Day 3 the booking-system link + payments/invoicing · Day 4 security, privacy & look-and-feel · Day 5 final scope + technical plan. The booking-system deep-dive starts Day 3 and continues into the first build stage; smaller details are settled as we go.
+**Discovery (1-week sprint — proposed minimum, not a ceiling):** Day 1 goals, people & roles, onboarding · Day 2 today's process, the "trip" idea, the rules · Day 3 the booking-system link + payments/invoicing · Day 4 security, privacy & look-and-feel · Day 5 final scope + technical plan. **Discovery is not a gate** — low-risk foundation/setup starts Day 1 in parallel, the booking-system deep-dive starts Day 3 and continues into build, and each decision feeds its build stream as soon as it's agreed.
 
 ---
 
