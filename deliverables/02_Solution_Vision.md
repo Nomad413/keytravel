@@ -5,7 +5,7 @@
 ## The problem
 - Booking today is **internal and agent-only** — clients phone or email, and Key Travel agents do everything by hand.
 - **Approvals and invoicing are manual** → slow, error-prone, and hard to scale.
-- There's no single view of a multi-part **trip**.
+- **Multi-stage trips** (e.g. flight + rail + hotel) are booked across separate systems, with **no single "trip" view** — as the client noted, agents lack a joint "trip" concept today.
 
 ## Vision
 > One self-service platform where client organisations manage their people, travel rules and end-to-end trips — with the right approvals applied automatically and Key Travel's booking system behind the scenes — so travel is booked **faster, within the rules, and with far less manual effort** on both sides.
@@ -50,7 +50,7 @@ The end-to-end golden path in detail — showing each role's actions, the policy
 
 ## How it fits together (in plain terms)
 - A **web app** (fully usable on desktop; mobile/tablet-optimized layouts are a fast-follow) backed by behind-the-scenes services for people, rules, trips and money; a **native mobile app (iOS/Android) comes later**.
-- A safe **"translator" layer** reuses Key Travel's existing booking APIs (search / book / change / cancel) instead of rebuilding them; **invoicing is handled by the new platform** and sent to **Microsoft Business Central**.
+- A safe **"translator" layer** reuses Key Travel's existing booking APIs — booking, changes and cancellations (search-via-API to confirm) — instead of rebuilding them; **invoicing is handled by the new platform** (no invoicing API) and sent to **Microsoft Business Central**.
 - **Biggest unknown:** the existing system's connections and documentation are incomplete → we investigate this first, in the discovery week, before finalising the plan.
 
 ```mermaid

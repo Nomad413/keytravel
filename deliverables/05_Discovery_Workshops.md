@@ -22,12 +22,12 @@ A short, intensive week at the very start to agree the key decisions, so the tea
 ### Day 2 — Booking process, the "trip", travel rules
 - Map **today's agent-led booking process** end to end and spot the manual pain points.
 - Design the **future self-service flow**: request → policy check → approvals → book → invoice.
-- Define what counts as **one "trip"** (multi-segment: flight + hotel + car).
+- Define what counts as **one "trip"** (multi-segment: flight + hotel + car) — the client noted agents split multi-stage trips (air + rail + hotel) across systems today with no joint trip object; MVP covers air/hotel/car, **rail/bus later**.
 - Agree the **policy rules** — spending limits, restricted destinations, cabin class, department, role/seniority — and how **soft enforcement** (warn + justify) behaves.
 - Confirm **who configures the rules** (Key Travel-assisted in the MVP).
 
 ### Day 3 — Booking-system link + payments & invoicing
-- Review **what the existing booking APIs cover** (search / book / change / cancel) and where the gaps are.
+- Review **what the existing booking APIs cover** — booking, changes and cancellations are confirmed; **confirm search-via-API**, and note **invoicing is manual (no API)** — and where the gaps are.
 - Assess **documentation quality** and the risks around the "translator" layer.
 - Agree how the **agent hand-off** works for anything the platform can't complete.
 - Define **central invoicing** and the **Microsoft Business Central** data flow (no invoicing API today).
