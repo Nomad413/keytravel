@@ -6,6 +6,7 @@ import { RoleDashboard } from "./screens/RoleDashboard";
 import { CreateRequest } from "./screens/CreateRequest";
 import { MyTrips } from "./screens/MyTrips";
 import { ApproverInbox } from "./screens/ApproverInbox";
+import { PreApprovals } from "./screens/PreApprovals";
 import { ChainSimulator } from "./screens/ChainSimulator";
 import { AdminConsole } from "./screens/AdminConsole";
 import { ActivityLog } from "./screens/ActivityLog";
@@ -144,6 +145,7 @@ export default function App() {
         {state.view === "create" && <CreateRequest />}
         {state.view === "trips" && <MyTrips />}
         {state.view === "approvals" && <ApproverInbox />}
+        {state.view === "preapprovals" && <PreApprovals />}
         {state.view === "simulate" && <ChainSimulator />}
         {state.view === "admin" && <AdminConsole />}
         {state.view === "activity" && <ActivityLog />}

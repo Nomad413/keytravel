@@ -56,6 +56,21 @@ export interface DepartmentBudget {
   limitAmount: number; // annual travel budget for the department
 }
 
+// A pre-approved budget envelope (vision / "Later" capability). A budget-owning
+// approver signs off an amount up front for a department; in-policy requests in
+// that department are then auto-approved and draw down the envelope, instead of
+// routing through the per-trip approval chain each time.
+export interface PreApproval {
+  id: string;
+  orgId: string;
+  department: string; // scope: the department this envelope covers
+  amount: number; // total pre-approved envelope
+  approverName: string; // who granted it
+  note?: string;
+  createdAt: string;
+  active: boolean; // revoked envelopes are kept for history but stop covering
+}
+
 export interface Organization {
   id: string;
   name: string;
@@ -197,4 +212,5 @@ export interface TravelRequest extends TravelRequestDraft {
   createdAt: string;
   bookingReference?: string; // set when booked via the internal booking system
   invoiceStatus?: InvoiceStatus; // set when booked; progressed by Finance
+  coveredByPreApprovalId?: string; // set when auto-approved under a pre-approved budget
 }
