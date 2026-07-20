@@ -14,6 +14,11 @@ import {
   seniorityLabel,
 } from "../lib/policy";
 import {
+  activePreApprovalForDept,
+  findCoveringPreApproval,
+  remainingOf,
+} from "../lib/preapproval";
+import {
   cabinClassLabel,
   carClassLabel,
   roomTypeLabel,
@@ -86,7 +91,7 @@ function baseBookingDraft(
 }
 
 export function CreateRequest() {
-  const { state, dispatch, currentOrg, orgUsers } = useApp();
+  const { state, dispatch, currentOrg, orgUsers, orgRequests } = useApp();
   const role = state.currentRole;
   const isArranger = role === "ARRANGER";
 
@@ -255,6 +260,26 @@ export function CreateRequest() {
   const previewChain = useMemo(
     () => (previewDraft ? buildApprovalChain(currentOrg, previewDraft) : []),
     [previewDraft, currentOrg]
+  );
+
+  // Pre-approved budget: if the primary traveler's department has an active
+  // envelope, in-policy bookings will auto-approve and draw it down.
+  const envelope = useMemo(
+    () => activePreApprovalForDept(state.preApprovals, currentOrg.id, primaryDept),
+    [state.preApprovals, currentOrg.id, primaryDept]
+  );
+  const envelopeRemaining = envelope ? remainingOf(envelope, orgRequests) : 0;
+  const previewCovered = useMemo(
+    () =>
+      previewDraft
+        ? findCoveringPreApproval(
+            state.preApprovals,
+            currentOrg,
+            previewDraft,
+            orgRequests
+          )
+        : null,
+    [previewDraft, state.preApprovals, currentOrg, orgRequests]
   );
 
   const submit = () => {
@@ -514,6 +539,17 @@ export function CreateRequest() {
                   {formatMoney(total, currentOrg.currency)}
                 </span>
               </div>
+              {envelope && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
+                  <span className="font-semibold">
+                    {primaryDept} has a pre-approved budget
+                  </span>{" "}
+                  — {formatMoney(envelopeRemaining, currentOrg.currency)} of{" "}
+                  {formatMoney(envelope.amount, currentOrg.currency)} left.
+                  In-policy bookings within it are auto-approved (no per-trip
+                  approval).
+                </div>
+              )}
               {outOfPolicy.length > 0 && (
                 <p className="mt-2 text-xs font-medium text-amber-700">
                   {outOfPolicy.length} booking(s) out of policy — justification
@@ -543,17 +579,35 @@ export function CreateRequest() {
               </p>
             </Card>
 
-            {previewChain.length > 0 && (
+            {previewCovered ? (
               <Card className="p-5">
                 <h3 className="mb-1 text-sm font-bold uppercase tracking-wide text-slate-500">
-                  Approval chain preview
+                  Approval preview
                 </h3>
-                <p className="mb-3 text-xs text-slate-400">
-                  Example for the highest-value booking · {previewChain.length}{" "}
-                  step(s).
-                </p>
-                <ApprovalChainView chain={previewChain} activeIndex={0} />
+                <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+                  <div className="font-semibold">
+                    Auto-approved — no chain needed
+                  </div>
+                  <p className="mt-1 text-xs">
+                    In-policy bookings are covered by {previewCovered.department}
+                    ’s pre-approved budget and go straight to “ready to book”.
+                    Out-of-policy bookings still route through approval.
+                  </p>
+                </div>
               </Card>
+            ) : (
+              previewChain.length > 0 && (
+                <Card className="p-5">
+                  <h3 className="mb-1 text-sm font-bold uppercase tracking-wide text-slate-500">
+                    Approval chain preview
+                  </h3>
+                  <p className="mb-3 text-xs text-slate-400">
+                    Example for the highest-value booking · {previewChain.length}{" "}
+                    step(s).
+                  </p>
+                  <ApprovalChainView chain={previewChain} activeIndex={0} />
+                </Card>
+              )
             )}
           </div>
         </div>

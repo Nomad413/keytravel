@@ -1,5 +1,6 @@
 import type {
   Organization,
+  PreApproval,
   TravelRequest,
   TravelRequestDraft,
   User,
@@ -1362,4 +1363,22 @@ export const seedRequests: TravelRequest[] = [
     "Iran requires HQ security clearance, not yet granted.",
     2
   ),
+];
+
+// One seeded pre-approved budget envelope (a "Later" / vision capability): the
+// budget-owning manager pre-approves a pot for the Programmes department, so
+// in-policy Programmes bookings are auto-approved and draw it down — while
+// Field Operations still routes through the normal approval chain, showing the
+// contrast side by side.
+export const seedPreApprovals: PreApproval[] = [
+  {
+    id: "pa-hope-programmes",
+    orgId: "org-hope",
+    department: "Programmes",
+    amount: 6000,
+    approverName: "Amara Okafor",
+    note: "Q3 partner-visit & conference budget — book freely within policy.",
+    createdAt: "2026-06-27T09:00:00.000Z",
+    active: true,
+  },
 ];

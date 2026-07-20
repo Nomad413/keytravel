@@ -10,6 +10,7 @@ import type {
   InvoiceStatus,
   Organization,
   PolicyRules,
+  PreApproval,
   RequestStatus,
   Role,
   StepDecision,
@@ -17,12 +18,14 @@ import type {
   TravelRequestDraft,
   User,
 } from "../types";
-import { buildApprovalChain, evaluatePolicy } from "../lib/policy";
+import { buildApprovalChain, evaluatePolicy, formatMoney } from "../lib/policy";
+import { findCoveringPreApproval, remainingOf } from "../lib/preapproval";
 import { getTripSummary } from "../lib/trip";
 import { roleNav, type ViewId } from "../lib/flows";
 import {
   defaultUserByRole,
   organizations as seedOrgs,
+  seedPreApprovals,
   seedRequests,
   users as seedUsers,
 } from "../data/seed";
@@ -36,6 +39,7 @@ interface AppState {
   currentRole: Role;
   currentUserName: string;
   requests: TravelRequest[];
+  preApprovals: PreApproval[];
   view: ViewId;
   selectedRequestId: string | null;
 }
@@ -68,6 +72,15 @@ type Action =
   | { type: "UPDATE_POLICY"; orgId: string; policy: PolicyRules }
   | { type: "UPDATE_USER_ROLE"; userId: string; role: Role }
   | {
+      type: "ADD_PREAPPROVAL";
+      orgId: string;
+      department: string;
+      amount: number;
+      note: string;
+      approverName: string;
+    }
+  | { type: "REVOKE_PREAPPROVAL"; id: string }
+  | {
       type: "ADD_ORG";
       name: string;
       description: string;
@@ -91,6 +104,7 @@ const initialState: AppState = {
   currentRole: roleForOrgDefault,
   currentUserName: defaultUserByRole[roleForOrgDefault],
   requests: seedRequests,
+  preApprovals: seedPreApprovals,
   view: "dashboard",
   selectedRequestId: null,
 };
@@ -203,8 +217,46 @@ function reducer(state: AppState, action: Action): AppState {
       if (!org) return state;
 
       const policy = evaluatePolicy(org, action.draft);
-      const chain = buildApprovalChain(org, action.draft);
+
+      // If an active pre-approved budget covers this in-policy request, it is
+      // auto-approved and draws down the envelope — no per-trip approval chain.
+      const covering = findCoveringPreApproval(
+        state.preApprovals,
+        org,
+        action.draft,
+        state.requests
+      );
+      const chain = covering ? [] : buildApprovalChain(org, action.draft);
       const now = new Date().toISOString();
+
+      const audit = [
+        {
+          id: uid(),
+          timestamp: now,
+          actor: action.draft.requestedByName || state.currentUserName,
+          action: "Request submitted",
+          detail: covering
+            ? `${getTripSummary(action.draft).headline} - covered by pre-approved budget`
+            : `${getTripSummary(action.draft).headline} - ${
+                chain.length
+              } approval step(s) required`,
+        },
+      ];
+
+      if (covering) {
+        const remainingAfter =
+          remainingOf(covering, state.requests) - action.draft.estimatedCost;
+        audit.push({
+          id: uid(),
+          timestamp: now,
+          actor: "System",
+          action: "Auto-approved under pre-approved budget",
+          detail: `Covered by the ${covering.department} pre-approved budget (${formatMoney(
+            Math.max(0, remainingAfter),
+            org.currency
+          )} remaining of ${formatMoney(covering.amount, org.currency)}) — ready to book`,
+        });
+      }
 
       const request: TravelRequest = {
         ...action.draft,
@@ -215,18 +267,9 @@ function reducer(state: AppState, action: Action): AppState {
         status: chain.length > 0 ? "PENDING" : "APPROVED",
         policy,
         chain,
+        coveredByPreApprovalId: covering ? covering.id : undefined,
         createdAt: now,
-        audit: [
-          {
-            id: uid(),
-            timestamp: now,
-            actor: action.draft.requestedByName || state.currentUserName,
-            action: "Request submitted",
-            detail: `${getTripSummary(action.draft).headline} - ${
-              chain.length
-            } approval step(s) required`,
-          },
-        ],
+        audit,
       };
 
       return {
@@ -371,6 +414,27 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, users };
     }
 
+    case "ADD_PREAPPROVAL": {
+      const preApproval: PreApproval = {
+        id: `pa-${uid().slice(0, 8)}`,
+        orgId: action.orgId,
+        department: action.department,
+        amount: action.amount,
+        approverName: action.approverName,
+        note: action.note || undefined,
+        createdAt: new Date().toISOString(),
+        active: true,
+      };
+      return { ...state, preApprovals: [preApproval, ...state.preApprovals] };
+    }
+
+    case "REVOKE_PREAPPROVAL": {
+      const preApprovals = state.preApprovals.map((pa) =>
+        pa.id === action.id ? { ...pa, active: false } : pa
+      );
+      return { ...state, preApprovals };
+    }
+
     case "ADD_ORG": {
       const org: Organization = {
         id: `org-${uid().slice(0, 6)}`,
@@ -408,6 +472,7 @@ interface AppContextValue {
   currentOrg: Organization;
   orgRequests: TravelRequest[];
   orgUsers: User[];
+  orgPreApprovals: PreApproval[];
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -423,7 +488,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       (r) => r.orgId === state.currentOrgId
     );
     const orgUsers = state.users.filter((u) => u.orgId === state.currentOrgId);
-    return { state, dispatch, currentOrg, orgRequests, orgUsers };
+    const orgPreApprovals = state.preApprovals.filter(
+      (p) => p.orgId === state.currentOrgId
+    );
+    return { state, dispatch, currentOrg, orgRequests, orgUsers, orgPreApprovals };
   }, [state]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

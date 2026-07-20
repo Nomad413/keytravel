@@ -6,6 +6,7 @@ export type ViewId =
   | "create"
   | "trips"
   | "approvals"
+  | "preapprovals"
   | "simulate"
   | "admin"
   | "activity"
@@ -118,6 +119,7 @@ export const roleFlows: Record<Role, FlowStep[]> = {
     { title: "Approve / reject", description: "Approve, reject or send back for modification with comments.", view: "approvals" },
     { title: "Escalation (if needed)", description: "Request is routed to the next approver in the workflow.", view: "approvals" },
     { title: "Final decision", description: "Final approval granted or request rejected; traveler notified.", view: "approvals" },
+    { title: "Pre-approve a budget (alt. flow)", description: "Optionally pre-approve a spend envelope for a department so in-policy bookings are auto-approved.", view: "preapprovals" },
   ],
   ADMIN: [
     { title: "Log in", description: "Access the admin console.", view: "dashboard" },
@@ -148,8 +150,8 @@ export const roleFlows: Record<Role, FlowStep[]> = {
 export const roleNav: Record<Role, ViewId[]> = {
   TRAVELER: ["dashboard", "create", "trips"],
   ARRANGER: ["dashboard", "create", "trips", "reporting"],
-  APPROVER: ["dashboard", "approvals", "create", "trips", "simulate"],
-  ADMIN: ["dashboard", "admin", "trips", "activity", "simulate"],
+  APPROVER: ["dashboard", "approvals", "preapprovals", "create", "trips", "simulate"],
+  ADMIN: ["dashboard", "admin", "preapprovals", "trips", "activity", "simulate"],
   FINANCE: ["dashboard", "finance", "trips", "reporting"],
   AGENT: ["dashboard", "clients", "reporting"],
 };
@@ -160,6 +162,7 @@ export const viewLabel: Record<ViewId, string> = {
   create: "New request",
   trips: "My trips",
   approvals: "Approvals",
+  preapprovals: "Pre-approved budgets",
   simulate: "Chain simulator",
   admin: "Admin console",
   activity: "Activity log",
@@ -186,6 +189,7 @@ export const viewScope: Record<ViewId, ViewScope> = {
   reporting: "Later",
   simulate: "Later",
   clients: "Later",
+  preapprovals: "Later", // alternative approval flow explored in discovery
 };
 
 export function labelForView(view: ViewId, role: Role): string {
