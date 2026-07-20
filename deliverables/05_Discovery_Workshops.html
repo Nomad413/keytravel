@@ -86,9 +86,10 @@
 </tbody></table>
 <h3>Day 1 — Goals, people &amp; roles, onboarding</h3>
 <ul>
-<li>Agree <strong>what success looks like</strong> and how we&#39;ll measure it (self-service rate, agent time saved, request-to-confirmation time).</li>
-<li>Confirm the <strong>pilot organisations</strong> and the criteria that prove the portal is ready to scale.</li>
-<li>Walk through the <strong>six roles</strong> and exactly what each can see and do.</li>
+<li>Agree <strong>what success looks like</strong> and how we&#39;ll measure it (self-service rate, agent time saved, request-to-confirmation time; plus the client&#39;s goals — <strong>higher client satisfaction and revenue growth</strong>).</li>
+<li>Confirm the <strong>pilot organisations</strong> and <strong>how we choose them</strong> — prioritise clients who&#39;ve complained about phone/email, categorise by size &amp; self-service appetite, and interview a few to surface more pain points.</li>
+<li>Confirm the <strong>commercial model</strong> — per-booking fee today; explore whether a <strong>subscription</strong> (e.g. a premium tier for HR integrations) is wanted.</li>
+<li>Walk through the <strong>six roles</strong> and exactly what each can see and do (note: <em>Travel Arranger</em> = travel-department staff; <em>Approver</em> = budget-owning manager).</li>
 <li>Decide <strong>how staff get accounts</strong> — single sign-on (SSO), MFA, starter staff list, welcome email.</li>
 <li>Agree <strong>how Key Travel sets up and supports</strong> each organisation in the MVP (and what becomes self-service later).</li>
 </ul>
@@ -100,6 +101,7 @@
 <li><strong>Decide rail/bus scope (open assumption):</strong> the client&#39;s trip example includes <strong>rail</strong>, but our assumption is MVP = air/hotel/car with rail/bus later. <strong>Confirm whether rail/bus is needed in the pilot, and whether it&#39;s bookable via the existing APIs or only in separate systems</strong> (which would make it added, post-MVP scope).</li>
 <li>Agree the <strong>policy rules</strong> — spending limits, restricted destinations, cabin class, department, role/seniority — and how <strong>soft enforcement</strong> (warn + justify) behaves.</li>
 <li>Confirm <strong>who configures the rules</strong> (Key Travel-assisted in the MVP).</li>
+<li>Agree <strong>approval edge-cases</strong>: what stalls a chain, <strong>alternate approvers / delegation &amp; reminders</strong>, <strong>partial approval</strong> of a trip, <strong>price changes during approval</strong> (re-check + show the delta), and the <strong>pre-approved-budget</strong> alternative (approve an amount, then book within it).</li>
 </ul>
 <h3>Day 3 — Booking-system link + payments &amp; invoicing</h3>
 <ul>
@@ -108,11 +110,13 @@
 <li>Agree how the <strong>agent hand-off</strong> works for anything the platform can&#39;t complete.</li>
 <li>Define <strong>central invoicing</strong> and the <strong>Microsoft Business Central</strong> data flow (no invoicing API today).</li>
 <li>Confirm <strong>company-card payment</strong> and card-security (PCI) needs.</li>
+<li>Confirm <strong>how organisations pay today</strong> (current settlement process) — the client stated the <em>desired</em> MVP model (central invoice + corporate card) but not today&#39;s mechanics.</li>
+<li>Clarify <strong>booking timing</strong> — booking happens <em>after</em> approval; confirm whether a <strong>hold/reservation without payment</strong> is possible before approval, and how <strong>change/cancel</strong> behaves if a request is rejected after booking.</li>
 </ul>
 <h3>Day 4 — Security, privacy &amp; look-and-feel</h3>
 <ul>
 <li>Confirm <strong>login and access</strong> — SSO/MFA, roles &amp; permissions, session rules.</li>
-<li>Agree <strong>data privacy (GDPR)</strong> obligations and <strong>where data is stored</strong> (UK/EU — to confirm).</li>
+<li>Agree <strong>data privacy (GDPR)</strong> obligations, the <strong>hosting stack</strong> (likely Microsoft/Azure — to confirm) and <strong>where data is stored</strong> (UK/EU) — <strong>decided now and set up early in the parallel foundation, not at the end</strong>.</li>
 <li>Define the <strong>audit trail</strong>: who did what, and when.</li>
 <li>Agree the <strong>measurement plan</strong> — the success-metric events to capture, the &quot;before&quot; baseline, and the <strong>analytics tooling</strong> (own a thin event layer now; pick the tool later, with <strong>data-residency</strong> deciding EU-hosted vs. self-hosted).</li>
 <li>Review <strong>branding</strong> and walk the <strong>main screens</strong> (request, approvals queue, trip view).</li>

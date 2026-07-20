@@ -39,7 +39,7 @@ export const roleMeta: Record<Role, RoleMeta> = {
   },
   ARRANGER: {
     label: "Travel Arranger",
-    blurb: "Books travel on behalf of employees.",
+    blurb: "Books travel on behalf of employees — typically someone from the travel department.",
     accent: {
       text: "text-emerald-700",
       bg: "bg-emerald-50",
@@ -49,7 +49,7 @@ export const roleMeta: Record<Role, RoleMeta> = {
   },
   APPROVER: {
     label: "Approver",
-    blurb: "Reviews and approves travel requests.",
+    blurb: "Reviews and approves requests — usually a budget-owning manager.",
     accent: {
       text: "text-orange-700",
       bg: "bg-orange-50",

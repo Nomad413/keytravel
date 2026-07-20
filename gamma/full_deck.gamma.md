@@ -79,7 +79,7 @@ Within the MVP we prioritise **Must / Should / Could** — only the **Musts** ar
 | **Discovery** | Week 1 (min.) | A 1-week working sprint — my proposed **minimum** hypothesis, could run longer. Build starts **in parallel** (foundation, SSO/MFA scaffolding, booking-system spike) — discovery is not a gate |
 | **Stage 1** | Mo 1–4 | Request → Approve: organisations, onboarding, rules, approvals, SSO/MFA login |
 | **Stage 2** | Mo 4–8 | Approve → Book → Invoice + Business Central |
-| **Final polish** | Mo 8–9 | Security, data-location setup, client testing, pilot go-live |
+| **Final polish** | Mo 8–9 | Security hardening, client testing, pilot go-live (hosting & data-location decided earlier, in discovery) |
 
 Time and budget are fixed, so **scope is what flexes** — we ship the "must-haves" first and move the rest later, with regular demos.
 

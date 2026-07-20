@@ -19,6 +19,8 @@ The things we're assuming to be true, stated openly so we can confirm them early
 | 13 | The MVP is delivered as a **web app**, fully usable on desktop; **mobile/tablet-optimized layouts are a fast-follow (Should)** and a **native mobile app (iOS/Android)** comes later. | 🟡 |
 | 14 | **Staff** are onboarded with SSO + staff-list upload + welcome email; automatic HR-system sync (SCIM) comes later. | 🟡 |
 | 15 | **Key Travel builds and runs** the platform; the client advises but doesn't do the hands-on development. | 🟢 |
+| 16 | Moving clients from **agent-only to self-service is a change-management risk**; we mitigate with a **visual onboarding guide** (MVP *Should*), a limited **pilot cohort**, and an interactive/AI-assisted walkthrough (later). | 🟡 |
+| 17 | Hosting is likely on the **Microsoft/Azure stack** (they already run Business Central) — **to confirm**; **data-residency & hosting are decided in discovery and set up early** in the parallel foundation, **not** at the end. | 🟡 / 🔴 |
 
 ## Technical & non-functional scope (MVP)
 *Baseline technical assumptions, kept deliberately lean for the pilot — to confirm in discovery.*
@@ -33,7 +35,7 @@ The things we're assuming to be true, stated openly so we can confirm them early
 
 ## Confirm these first (highest risk × impact)
 1. **The booking-system reality** — what the existing APIs cover, the documentation, and the invoicing gap → investigate in Week 1.
-2. **Pilot scope** — which organisations go first, and the success criteria that prove the portal is ready to scale.
+2. **Pilot scope & client selection** — which organisations go first (prioritise those who've complained about phone/email; categorise by size & self-service appetite), and the success criteria that prove the portal is ready to scale.
 3. **Who sets up organisations & rules** — Key Travel-assisted in the MVP; when org self-service onboarding arrives post-MVP.
 4. **Where data must be stored** (country/region).
 5. Agreement that, with fixed time and budget, **scope is the flexible part**.

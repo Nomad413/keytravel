@@ -20,8 +20,8 @@
 | Role | In a nutshell |
 |---|---|
 | Traveller | Requests a trip that follows the rules; tracks its status |
-| Travel Arranger | Books on behalf of colleagues |
-| Approver (levels 1–3) | Approves requests, with the policy context in front of them |
+| Travel Arranger | Books on behalf of colleagues — typically **someone from the travel department** (or the traveller themselves), not a line manager |
+| Approver (levels 1–3) | Approves requests, with the policy context in front of them — usually a **budget-owning manager** |
 | Organisation Administrator | Manages their own people (add/remove staff, set roles) |
 | Finance | Handles one central invoice; sends figures to Microsoft Business Central |
 | Key Travel Agent | Sets up and supports client organisations; handles exceptions |
