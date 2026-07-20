@@ -37,6 +37,7 @@ A short, intensive week at the very start to agree the key decisions, so the tea
 - Confirm **login and access** — SSO/MFA, roles & permissions, session rules.
 - Agree **data privacy (GDPR)** obligations and **where data is stored** (UK/EU — to confirm).
 - Define the **audit trail**: who did what, and when.
+- Agree the **measurement plan** — the success-metric events to capture, the "before" baseline, and the **analytics tooling** (own a thin event layer now; pick the tool later, with **data-residency** deciding EU-hosted vs. self-hosted).
 - Review **branding** and walk the **main screens** (request, approvals queue, trip view).
 
 ### Day 5 — Final scope + technical plan

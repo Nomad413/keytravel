@@ -86,4 +86,9 @@ flowchart TD
 ```
 
 ## How we'll measure success
-More self-service (fewer phone/email bookings) · less agent time per booking · faster request-to-confirmation · fewer booking errors · **higher client satisfaction** · **revenue growth** · pilot organisations live and active. *(Measured from the MVP; charts and dashboards come later.)*
+**North-star:** more travel booked **self-service, within the rules, with far less agent effort.**
+
+- **Leading indicators** (the platform directly moves these; our pilot evidence): self-service completion rate ↑ · agent-hours per booking ↓ · request-to-confirmation time ↓ · booking errors ↓ · request→booking conversion ↑.
+- **Lagging outcomes** (business goals, longer horizon): **higher client satisfaction** — a quick post-booking rating (CSAT/effort score) plus periodic NPS and pilot interviews · **revenue growth** — lower cost-to-serve enabling scale, more booking value captured in-channel, and more active organisations.
+
+*We capture a **"before" baseline in discovery** so every metric is measured as a delta. **Success-metric events are instrumented from the MVP; charts and dashboards come later.***
