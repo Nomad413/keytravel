@@ -113,6 +113,7 @@
 <li>Confirm <strong>login and access</strong> — SSO/MFA, roles &amp; permissions, session rules.</li>
 <li>Agree <strong>data privacy (GDPR)</strong> obligations and <strong>where data is stored</strong> (UK/EU — to confirm).</li>
 <li>Define the <strong>audit trail</strong>: who did what, and when.</li>
+<li>Agree the <strong>measurement plan</strong> — the success-metric events to capture, the &quot;before&quot; baseline, and the <strong>analytics tooling</strong> (own a thin event layer now; pick the tool later, with <strong>data-residency</strong> deciding EU-hosted vs. self-hosted).</li>
 <li>Review <strong>branding</strong> and walk the <strong>main screens</strong> (request, approvals queue, trip view).</li>
 </ul>
 <h3>Day 5 — Final scope + technical plan</h3>
@@ -126,10 +127,13 @@
 <p>To protect the ~9-month timeline, we <strong>don&#39;t wait for all discovery results before starting</strong>. Low-risk foundation and setup work begins on <strong>Day 1</strong>, in parallel with the workshops, and each stream picks up decisions the moment they land:</p>
 <ul>
 <li><strong>Foundation &amp; setup</strong> (no discovery dependency): repositories, environments, CI/CD, the app skeleton, secure-login (SSO/MFA) scaffolding, and the multi-tenant structure.</li>
-<li><strong>Booking-system &quot;translator&quot; spike</strong> (the biggest unknown): the technical deep-dive into the existing APIs starts <strong>Day 3</strong> and continues into the first build stage.</li>
+<li><strong>Booking-system &quot;translator&quot; spike</strong> (the biggest unknown, and the <em>one exception</em> to the 1-week frame): a <strong>time-boxed technical spike of up to ~2 weeks, run in parallel</strong> — starting <strong>Day 3</strong> and continuing into the first build stage. The aim is to prove we can search / book / change / cancel through the existing system and get figures into Business Central — or to confirm the agent hand-off fallback. Under-investing here is the classic way a fixed-timeline project gets a nasty mid-project surprise, so this risk gets a little more room than the rest.</li>
 <li><strong>Design/branding starter:</strong> early screens for the core request → approve → book flow.</li>
+<li><strong>Prototype as a discovery tool:</strong> we validate the flow, roles and policy model with client SMEs against the <strong>working prototype</strong> — reacting to something concrete is faster and cheaper than authoring specs (and fits the client&#39;s minimal engineering capacity).</li>
 <li><strong>Continuous hand-off:</strong> as each decision is agreed during the week, the relevant build stream starts immediately — so implementation <strong>ramps up <em>with</em> discovery, not after it</strong>.</li>
 </ul>
+<h2>After the sprint — continuous discovery</h2>
+<p>Rather than a second big phase, remaining questions are folded into normal <strong>sprint refinement</strong> — lightweight, just-in-time, and close to the code. We keep a live <strong>risk register</strong> with owners; discovery is &quot;done enough&quot; once integration feasibility is proven (or a fallback agreed), the MVP <strong>Must</strong> scope is locked, the architecture baseline and data-residency are decided, and no <em>blocking</em> questions remain.</p>
 <p><strong>What we walk away with:</strong> an agreed first-version scope and to-do list · a map of the travel process and a clear definition of a &quot;trip&quot; · the policy &amp; approval rules · a plan (and risk list) for the booking-system link · the finance, security and privacy requirements · the technical foundation and delivery plan.</p>
 
 </div>
