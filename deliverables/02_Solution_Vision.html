@@ -51,7 +51,7 @@
 <ul>
 <li>Booking today is <strong>internal and agent-only</strong> — clients phone or email, and Key Travel agents do everything by hand.</li>
 <li><strong>Approvals and invoicing are manual</strong> → slow, error-prone, and hard to scale.</li>
-<li>There&#39;s no single view of a multi-part <strong>trip</strong>.</li>
+<li><strong>Multi-stage trips</strong> (e.g. flight + rail + hotel) are booked across separate systems, with <strong>no single &quot;trip&quot; view</strong> — as the client noted, agents lack a joint &quot;trip&quot; concept today.</li>
 </ul>
 <h2>Vision</h2>
 <blockquote>
@@ -112,7 +112,7 @@
 <h2>How it fits together (in plain terms)</h2>
 <ul>
 <li>A <strong>web app</strong> (fully usable on desktop; mobile/tablet-optimized layouts are a fast-follow) backed by behind-the-scenes services for people, rules, trips and money; a <strong>native mobile app (iOS/Android) comes later</strong>.</li>
-<li>A safe <strong>&quot;translator&quot; layer</strong> reuses Key Travel&#39;s existing booking APIs (search / book / change / cancel) instead of rebuilding them; <strong>invoicing is handled by the new platform</strong> and sent to <strong>Microsoft Business Central</strong>.</li>
+<li>A safe <strong>&quot;translator&quot; layer</strong> reuses Key Travel&#39;s existing booking APIs — booking, changes and cancellations (search-via-API to confirm) — instead of rebuilding them; <strong>invoicing is handled by the new platform</strong> (no invoicing API) and sent to <strong>Microsoft Business Central</strong>.</li>
 <li><strong>Biggest unknown:</strong> the existing system&#39;s connections and documentation are incomplete → we investigate this first, in the discovery week, before finalising the plan.</li>
 </ul>
 <div class="mermaid">flowchart LR

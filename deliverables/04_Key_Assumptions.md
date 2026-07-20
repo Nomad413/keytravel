@@ -12,7 +12,7 @@ The things we're assuming to be true, stated openly so we can confirm them early
 | 6 | Approvals are **step-by-step, 1–3 levels**, triggered by cost, destination, cabin class, department or role/seniority. | 🟢 |
 | 7 | Breaking a rule **warns and asks for a justification** (rather than blocking outright). | 🟡 |
 | 8 | In the MVP, **Key Travel sets up each pilot organisation by hand** (profile, rules, approvals, connections) — a **manual/internal** step, not a built onboarding product. A **self-service organisation onboarding flow** is **post-MVP**. | 🔴 |
-| 9 | We **reuse the existing booking APIs** (search / book / change / cancel) rather than connecting directly to airlines or hotels. | 🟢 |
+| 9 | We **reuse the existing booking APIs** rather than connecting directly to airlines or hotels. The client confirmed **booking, changes and cancellations** are API-exposed (invoicing is manual, no API); **search-via-API is assumed and to be confirmed** in discovery. | 🟢 |
 | 10 | There's **no invoicing API**, so the new platform creates invoices and sends the figures to **Microsoft Business Central**. | 🟢 |
 | 11 | Payment is by **central invoice and company card** — not individual travellers paying. | 🟢 |
 | 12 | **Secure login (SSO/MFA), data privacy (GDPR) and card security (PCI DSS)** are required; where data is stored (UK/EU) still to confirm. | 🟢 / 🔴 |

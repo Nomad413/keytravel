@@ -24,7 +24,7 @@ The work grouped into **epics**. Within each epic, features are listed **in user
 *Create a request and turn it into one bookable trip.*
 1. **M** · **Guided request form** — capture who's travelling, where, when and why in a simple flow.
 2. **M** · **Search flights, hotels & cars** — live options pulled from the existing booking APIs.
-3. **M** · **Unified trip** — combine multiple segments (e.g. flight + hotel + car) into a single trip.
+3. **M** · **Unified trip** — combine multiple segments (e.g. flight + hotel + car) into a single trip. Designed to be **multi-modal** so rail/bus slot in later (the client's own example spans air + rail + hotel).
 4. **M** · **Status tracking** — follow a request from Pending → Approved → Booked → Completed.
 5. **S** · **Notifications** — travellers and approvers are alerted (email) when something needs them or changes.
 
