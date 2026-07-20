@@ -50,6 +50,7 @@
 <blockquote>
 <p><strong>How we prioritise:</strong> the <strong>MVP</strong> launches as a <strong>pilot to a few organisations</strong> to prove the portal. Only the <strong>Must</strong> features are essential to that pilot; <strong>Should/Could</strong> are included if time allows. Time and budget are fixed, so <strong>scope is the flexible part</strong> — Musts first, then Should/Could, then <em>Later</em>.</p>
 <p><strong>M</strong> = Must (core spine) · <strong>S</strong> = Should (valuable, not blocking) · <strong>C</strong> = Could (nice-to-have) · <em>Later</em> = post-MVP.</p>
+<p><strong>Who configures what in the MVP:</strong> <strong>Key Travel</strong> sets up each organisation&#39;s <strong>policies, approval workflows, budgets and integrations</strong> during onboarding. <strong>Managing your own users is the only org-admin self-service capability in the MVP</strong> — self-service editing of everything else is <em>Later</em>.</p>
 </blockquote>
 <h2>E1 · Organisations &amp; people</h2>
 <p><em>Set up each client organisation and its staff, and get everyone signed in.</em></p>
@@ -57,18 +58,18 @@
 <li><strong>M</strong> · <strong>Key Travel-assisted organisation setup (manual/internal)</strong> — for the pilot, an agent sets up each organisation by hand (profile, structure, rules, system connections). No self-service onboarding flow is built yet — that&#39;s <em>Later</em>.</li>
 <li><strong>S</strong> · <strong>Welcome / activation email at go-live</strong> — an automated invite into a ready-to-use workspace (for a few pilot orgs an agent can also do this by hand).</li>
 <li><strong>M</strong> · <strong>Single sign-on (SSO) login</strong> — people sign in with their existing company account.</li>
-<li><strong>M</strong> · <strong>Multi-factor authentication (MFA)</strong> — a second verification step for secure access.</li>
+<li><strong>M</strong> · <strong>Multi-factor authentication (MFA)</strong> — a second verification step for secure access, <strong>enforced through the organisation&#39;s SSO/identity provider</strong> (a bespoke MFA system is only needed if non-SSO accounts are supported — a <em>Should</em>).</li>
 <li><strong>S</strong> · <strong>Auto-create accounts on first sign-in (SSO JIT)</strong> — new staff get an account automatically instead of being pre-loaded.</li>
 <li><strong>M</strong> · <strong>Roles &amp; permissions</strong> — traveller, arranger, approver, admin, finance and agent each see only what their role allows.</li>
 <li><strong>M</strong> · <strong>Org admin manages their own people</strong> — invite, assign a role, or deactivate staff.</li>
 <li><strong>C</strong> · <strong>Bulk staff upload</strong> — import an initial staff list from a spreadsheet (a few pilot orgs can also be invited manually).</li>
 <li><strong>M</strong> · <strong>Book on behalf of colleagues</strong> — arrangers can request and book for other people.</li>
 </ol>
-<p><em>Later:</em> Key Travel Agent cross-org support &amp; act-on-behalf (audited) · self-service organisation onboarding (an org adds/configures its own profile) · automatic HR-system sync (SCIM/HRIS).</p>
+<p><em>Later:</em> Key Travel Agent cross-org support &amp; act-on-behalf (audited) · self-service organisation onboarding (an org adds/configures its own profile) · automatic HR-system sync (SCIM/HRIS, e.g. Bamboo HR).</p>
 <h2>E2 · Travel request &amp; trip</h2>
 <p><em>Create a request and turn it into one bookable trip.</em></p>
 <ol>
-<li><strong>M</strong> · <strong>Guided request form</strong> — capture who&#39;s travelling, where, when and why in a simple flow.</li>
+<li><strong>M</strong> · <strong>Guided request form</strong> — capture who&#39;s travelling, where, when and why in a simple flow, with <strong>destination and dates set once at trip level and reused across flight/hotel/car search</strong> (no double entry).</li>
 <li><strong>M</strong> · <strong>Search flights, hotels &amp; cars</strong> — live options pulled from the existing booking APIs.</li>
 <li><strong>M</strong> · <strong>Unified trip</strong> — combine multiple segments (e.g. flight + hotel + car) into a single trip. Designed to be <strong>multi-modal</strong> so rail/bus slot in later (the client&#39;s own example spans air + rail + hotel).</li>
 <li><strong>M</strong> · <strong>Status tracking</strong> — follow a request from Pending → Approved → Booked → Completed.</li>
@@ -92,8 +93,12 @@
 <li><strong>M</strong> · <strong>Extra approval on breach</strong> — an additional step is added automatically when a rule is broken.</li>
 <li><strong>M</strong> · <strong>Approver to-do list</strong> — a clear queue showing each request with its policy context.</li>
 <li><strong>S</strong> · <strong>Approve or reject with comments</strong> — a decision and its reason captured in one place.</li>
+<li><strong>S</strong> · <strong>Partial approval</strong> — approve or reject individual bookings within a trip (a trip can end up <em>partially approved</em>).</li>
+<li><strong>S</strong> · <strong>Alternate approvers &amp; reminders</strong> — delegate when an approver is away, with reminders/escalation so requests don&#39;t stall.</li>
+<li><strong>S</strong> · <strong>Price re-check at approval</strong> — re-validate the fare before booking and surface any change since the request to the approver.</li>
+<li><strong>M</strong> · <strong>Key Travel configures the approval chains</strong> — set up per organisation during onboarding (the org self-service workflow editor is <em>Later</em>).</li>
 </ol>
-<p><em>Later:</em> parallel / conditional / more-than-3-level chains.</p>
+<p><em>Later:</em> org self-service approval-workflow editor · pre-approved trip budget (approve an amount, then book within it) · parallel / conditional / more-than-3-level chains.</p>
 <h2>E5 · Link to the booking system</h2>
 <p><em>Reuse Key Travel&#39;s existing engine to actually book.</em></p>
 <ol>
@@ -111,7 +116,7 @@
 <li><strong>M</strong> · <strong>Company-card payment</strong> — pay centrally by corporate card.</li>
 <li><strong>M</strong> · <strong>Business Central sync</strong> — invoice figures flow to Microsoft Business Central.</li>
 </ol>
-<p><em>Later:</em> individual traveller payments.</p>
+<p><em>Later:</em> individual / self-pay or reimbursement flows — <strong>only if a client requests it</strong> (outside the client&#39;s current central-payment model).</p>
 <h2>E7 · Platform foundations <em>(cross-cutting)</em></h2>
 <p><em>The things every epic relies on.</em></p>
 <ol>
@@ -121,8 +126,9 @@
 <li><strong>S</strong> · <strong>Success-metric tracking (KPIs)</strong> — usage and efficiency measured (can be light at pilot stage).</li>
 <li><strong>M</strong> · <strong>Web app UI</strong> — the platform is delivered as a web app (no separate app to install), fully usable on a desktop browser.</li>
 <li><strong>S</strong> · <strong>Responsive / mobile-optimized layouts</strong> — the same site adapts cleanly to phone and tablet (desk-based pilot users can work on desktop first).</li>
+<li><strong>S</strong> · <strong>Adoption / onboarding guide</strong> — a short, visual how-to (screenshots, minimal text) to move users off phone/email onto self-service (a key change-management risk).</li>
 </ol>
-<p><em>Later:</em> reporting dashboards &amp; charts · traveller safety tracking (duty-of-care) · <strong>native mobile app (iOS/Android)</strong>.</p>
+<p><em>Later:</em> in-app / AI-assisted interactive walkthrough · reporting dashboards &amp; charts · traveller safety tracking (duty-of-care) · <strong>native mobile app (iOS/Android)</strong>.</p>
 <h2>Rough 9-month timeline</h2>
 <table>
 <thead>
@@ -135,7 +141,7 @@
 <tbody><tr>
 <td><strong>0 · Discovery</strong></td>
 <td>Week 1 (min.)</td>
-<td>A 1-week sprint to agree the plan — a proposed <strong>minimum</strong>, could run longer. Build starts <strong>in parallel</strong> (foundation + booking-system spike); discovery is not a gate</td>
+<td>A 1-week sprint to agree the plan — a proposed <strong>minimum</strong>, could run longer. Build starts <strong>in parallel</strong> (foundation + booking-system spike); <strong>hosting &amp; data-residency decided here</strong>; discovery is not a gate</td>
 </tr>
 <tr>
 <td><strong>1 · Request → Approve</strong></td>
@@ -150,7 +156,7 @@
 <tr>
 <td><strong>3 · Final polish + pilot</strong></td>
 <td>Months 8–9</td>
-<td>E7 hardening: security, data residency, client testing, first pilot organisations go live</td>
+<td>E7 hardening: security &amp; performance, client testing (UAT), first pilot organisations go live. <em>(Data-residency/hosting was decided in discovery and set up early in the parallel foundation — not here.)</em></td>
 </tr>
 </tbody></table>
 

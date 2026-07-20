@@ -13,9 +13,10 @@ A short, intensive week at the very start to agree the key decisions, so the tea
 | **5** | Final scope + technical plan | Sponsor, technical lead |
 
 ### Day 1 — Goals, people & roles, onboarding
-- Agree **what success looks like** and how we'll measure it (self-service rate, agent time saved, request-to-confirmation time).
-- Confirm the **pilot organisations** and the criteria that prove the portal is ready to scale.
-- Walk through the **six roles** and exactly what each can see and do.
+- Agree **what success looks like** and how we'll measure it (self-service rate, agent time saved, request-to-confirmation time; plus the client's goals — **higher client satisfaction and revenue growth**).
+- Confirm the **pilot organisations** and **how we choose them** — prioritise clients who've complained about phone/email, categorise by size & self-service appetite, and interview a few to surface more pain points.
+- Confirm the **commercial model** — per-booking fee today; explore whether a **subscription** (e.g. a premium tier for HR integrations) is wanted.
+- Walk through the **six roles** and exactly what each can see and do (note: *Travel Arranger* = travel-department staff; *Approver* = budget-owning manager).
 - Decide **how staff get accounts** — single sign-on (SSO), MFA, starter staff list, welcome email.
 - Agree **how Key Travel sets up and supports** each organisation in the MVP (and what becomes self-service later).
 
@@ -26,6 +27,7 @@ A short, intensive week at the very start to agree the key decisions, so the tea
 - **Decide rail/bus scope (open assumption):** the client's trip example includes **rail**, but our assumption is MVP = air/hotel/car with rail/bus later. **Confirm whether rail/bus is needed in the pilot, and whether it's bookable via the existing APIs or only in separate systems** (which would make it added, post-MVP scope).
 - Agree the **policy rules** — spending limits, restricted destinations, cabin class, department, role/seniority — and how **soft enforcement** (warn + justify) behaves.
 - Confirm **who configures the rules** (Key Travel-assisted in the MVP).
+- Agree **approval edge-cases**: what stalls a chain, **alternate approvers / delegation & reminders**, **partial approval** of a trip, **price changes during approval** (re-check + show the delta), and the **pre-approved-budget** alternative (approve an amount, then book within it).
 
 ### Day 3 — Booking-system link + payments & invoicing
 - Review **what the existing booking APIs cover** — booking, changes and cancellations are confirmed; **confirm search-via-API**, and note **invoicing is manual (no API)** — and where the gaps are.
@@ -33,10 +35,12 @@ A short, intensive week at the very start to agree the key decisions, so the tea
 - Agree how the **agent hand-off** works for anything the platform can't complete.
 - Define **central invoicing** and the **Microsoft Business Central** data flow (no invoicing API today).
 - Confirm **company-card payment** and card-security (PCI) needs.
+- Confirm **how organisations pay today** (current settlement process) — the client stated the *desired* MVP model (central invoice + corporate card) but not today's mechanics.
+- Clarify **booking timing** — booking happens *after* approval; confirm whether a **hold/reservation without payment** is possible before approval, and how **change/cancel** behaves if a request is rejected after booking.
 
 ### Day 4 — Security, privacy & look-and-feel
 - Confirm **login and access** — SSO/MFA, roles & permissions, session rules.
-- Agree **data privacy (GDPR)** obligations and **where data is stored** (UK/EU — to confirm).
+- Agree **data privacy (GDPR)** obligations, the **hosting stack** (likely Microsoft/Azure — to confirm) and **where data is stored** (UK/EU) — **decided now and set up early in the parallel foundation, not at the end**.
 - Define the **audit trail**: who did what, and when.
 - Agree the **measurement plan** — the success-metric events to capture, the "before" baseline, and the **analytics tooling** (own a thin event layer now; pick the tool later, with **data-residency** deciding EU-hosted vs. self-hosted).
 - Review **branding** and walk the **main screens** (request, approvals queue, trip view).
