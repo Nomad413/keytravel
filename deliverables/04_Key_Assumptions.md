@@ -7,7 +7,7 @@ The things we're assuming to be true, stated openly so we can confirm them early
 | 1 | This is an **internal efficiency and growth tool** — not a product Key Travel will sell to others. | 🟢 |
 | 2 | The heart of the MVP is **self-service: request → approval → booking**. | 🟢 |
 | 3 | **The MVP is a pilot** — it launches to a **small number of organisations** to prove the portal end-to-end, before scaling to hundreds. | 🟡 |
-| 4 | The MVP books **flights, hotels and cars**; **train & bus come later** (a trip can still combine several modes). | 🟡 |
+| 4 | The MVP books **flights, hotels and cars** (the scope named in the brief, and what the existing APIs cover); **train & bus come later**. The client's own trip example is *air + rail + hotel*, but they noted rail is handled in **separate systems** today — so rail/bus likely needs **new integrations** and would be **added scope**. The trip object is multi-modal, so they slot in later. **Whether rail is needed in the pilot is a discovery decision to confirm.** | 🟡 |
 | 5 | There are **six roles**, and staff can **book on behalf of others**. | 🟢 |
 | 6 | Approvals are **step-by-step, 1–3 levels**, triggered by cost, destination, cabin class, department or role/seniority. | 🟢 |
 | 7 | Breaking a rule **warns and asks for a justification** (rather than blocking outright). | 🟡 |
